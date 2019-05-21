@@ -1,0 +1,200 @@
+// Defining variables
+:root {
+  --player-size: 360px;
+
+  @include for-laptop-down {
+    --player-size: 270px;
+  }
+
+  @include for-grid-break {
+    --player-size: 360px;
+  }
+
+  @include for-phone-only {
+    --player-size: 100%;
+  }
+}
+
+main.home-content {
+
+  .content-wrapper {
+    padding: var(--space--xl) var(--space--xl) 0 var(--space--xl);
+    width: 100%;
+
+    @include for-laptop-down {
+      padding: var(--space--lg) var(--space--lg) 0 var(--space--lg);
+    }
+
+    @include for-tablet-down {
+      padding: var(--space--lg) var(--space--md) 0 var(--space--xl);
+    }
+
+    @include for-phone-only {
+      padding: var(--space--lg) var(--space--lg) 0 var(--space--xl);
+    }
+  }
+
+  // Main Header for the page
+
+  h2 {
+    margin-bottom: calc(var(--space--xxl) + var(--space--sm));
+
+    @include for-laptop-down {
+      margin-bottom: calc(var(--space--xl) + var(--space--sm));
+    }
+  }
+}
+
+// Grid for music players
+.music-wrapper {
+  display: grid;
+  grid-template-columns: 1fr min-content 9% min-content;
+
+  @include for-grid-break {
+    grid-template-columns: 1fr;
+    grid-row-gap: var(--space--xl);
+    justify-items: center;
+  }
+}
+
+// Music Player Specific Styles
+.player {
+  width: var(--player-size);
+  height: auto;
+  position: relative;
+  background-color: var(--black);
+  z-index: 0;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  // Assign grid columns and offsets
+  &:nth-child(odd) {
+    grid-column: 4 / -1;
+    margin-bottom: 70%;
+  }
+
+  // Boxes around player
+  &:nth-child(odd)::before {
+    content: '';
+    width: var(--player-size);
+    height: var(--player-size);
+    border: var(--border-main);
+    right: var(--space--sm);
+    top: calc(var(--space--sm) * -1);
+    display: block;
+    position: absolute;
+    z-index: -1;
+  }
+
+  &:nth-child(even)::before {
+    content: '';
+    width: var(--player-size);
+    height: var(--player-size);
+    background-color: var(--pink);
+    right: var(--space--sm);
+    top: calc(var(--space--sm) * -1);
+    display: block;
+    position: absolute;
+    z-index: -1;
+  }
+
+  @include for-phone-only {
+
+    &:nth-child(even)::before,
+    &:nth-child(odd)::before {
+      height: calc(var(--player-size) - (var(--space--sm) * 2));
+      right: unset;
+      left: var(--space--sm);
+    }
+  }
+
+  &:nth-child(even) {
+    grid-column: 2 / 3;
+    margin-top: -84%;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  @include for-grid-break {
+
+    // Assign grid columns and offsets (mobile)
+    &:nth-child(odd),
+    &:nth-child(even) {
+      grid-column: 1;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+
+  // Player Controls Wrapper & Container Styles
+  .player-controls--wrapper {
+    border: var(--border-main);
+    display: flex;
+    align-items: center;
+  }
+
+  .player-track--container {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 var(--space--sm);
+  }
+
+
+  // Track Title Container Styles
+  .track-txt-title--wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 140px;
+
+    @include for-laptop-down {
+      max-width: 85px;
+    }
+
+    @include for-phone-only {
+      max-width: 15vw;
+    }
+  }
+
+  // Player Text
+  .track-txt-title,
+  .track-txt-time {
+    font-size: var(--txt--xsm);
+  }
+
+  // Player Button Styles
+  .play-pause-btn {
+    border: none;
+    background-color: var(--pink);
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+
+    img {
+      width: 16px;
+      height: auto;
+    }
+
+    @include for-laptop-down {
+      width: 33px;
+      height: 33px;
+
+      img {
+        width: 12px;
+      }
+    }
+
+  }
+}

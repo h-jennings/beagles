@@ -1,0 +1,274 @@
+/* ~~~~~~~~~~~~~~~~~~~~
+
+Sidebar CSS
+
+~~~~~~~~~~~~~~~~~~~~~~ */
+
+
+// Setting variables for menu button size
+:root {
+  --btn--height: 256px;
+
+  @include for-laptop-down {
+    --btn--height: calc(0.75 * 256px);
+  }
+}
+
+// Desktop Sidebar styles
+aside.sidebar {
+  overflow: visible;
+  max-width: 360px;
+  position: fixed;
+  height: 100vh;
+  border-right: var(--border-main);
+  width: 25%;
+
+  @include for-tablet-down {
+    transform: translateX(-100%);
+    width: 100%;
+    max-width: unset;
+    z-index: 100;
+  }
+
+  nav.sidebar-links {
+    display: none;
+    width: 100%;
+    background-color: var(--black);
+    height: calc(100vh - var(--btn--height));
+    align-items: flex-start;
+    justify-content: center;
+    padding: var(--space--xxl) var(--space--xl) 0 var(--space--xl);
+
+    li {
+      margin-bottom: var(--space--xl);
+      position: relative;
+
+      @include for-laptop-down {
+        margin-bottom: var(--space--lg);
+        font-size: var(--txt--base);
+      }
+
+      @include for-tablet-down {
+        margin-bottom: var(--space--xl);
+        font-size: var(--txt--sm);
+      }
+
+      @include for-phone-only {
+        margin-bottom: var(--space--lg);
+        font-size: var(--txt--base);
+      }
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &::before {
+        font-family: var(--font-primary);
+        font-size: var(--txt--xsm);
+        color: var(--pink);
+        position: absolute;
+        top: calc((var(--space--sm) * -1));
+        left: calc((var(--space--sm) * -1) * 2);
+
+        @include for-laptop-down {
+          font-size: calc(var(--txt--xsm) * 0.75);
+          top: calc((var(--space--sm) * -1));
+          left: calc((var(--space--sm) * -1) * 1.5);
+        }
+      }
+
+      &:nth-child(1)::before {
+        content: '01';
+      }
+
+      &:nth-child(2)::before {
+        content: '02';
+      }
+
+      &:nth-child(3)::before {
+        content: '03';
+      }
+    }
+
+  }
+
+  button {
+    cursor: pointer;
+  }
+
+  button[data-button-type="menu"] {
+    width: 100%;
+    background-color: var(--pink);
+    min-height: var(--btn--height);
+    margin: 0;
+    border: none;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3;
+    padding: 0;
+  }
+
+  button[data-button-type="close"] {
+    cursor: pointer;
+    position: absolute;
+    top: var(--space--sm);
+    right: var(--space--sm);
+    background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+    width: 50px;
+    height: 50px;
+
+    @include for-laptop-down {
+      top: var(--space--base);
+      right: var(--space--base);
+    }
+
+    svg {
+      outline: none;
+      // 2 * π * r = C 
+      // C = stroke-dasharray
+      stroke-dasharray: 138.23;
+      stroke-dashoffset: 138.23;
+      transition: stroke-dashoffset 0.5s ease-in-out;
+      transform: rotate(-90deg);
+      transform-origin: center;
+
+      &:hover {
+        stroke-dashoffset: 0;
+      }
+
+      @include for-laptop-down {
+        transform: scale(0.75) rotate(-90deg);
+      }
+
+      @include for-tablet-down {
+        transform: scale(1) rotate(-90deg);
+      }
+
+      @include for-phone-only {
+        transform: scale(0.75) rotate(-90deg);
+      }
+    }
+  }
+
+  .menu--txt {
+    position: absolute;
+    top: 28px;
+    line-height: 1;
+    text-align: center;
+  }
+
+  .book--txt {
+    display: none;
+    font-family: var(--font-primary);
+
+    @include for-laptop-down {
+      font-size: var(--txt--sm);
+    }
+
+    @include for-tablet-down {
+      font-size: var(--txt--md);
+    }
+
+    @include for-phone-only {
+      font-size: var(--txt--sm);
+    }
+  }
+
+  .hamburger {
+    .bar {
+      width: 72px;
+      height: 4px;
+      background-color: var(--black);
+      margin-bottom: var(--space--base);
+    }
+  }
+
+  &[data-state="open"] {
+    .menu--txt {
+      display: none;
+    }
+
+    .hamburger {
+      display: none;
+    }
+
+    .book--txt {
+      display: inline-block;
+    }
+
+    nav.sidebar-links {
+      display: flex;
+    }
+  }
+
+  .name-wrapper {
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    background-color: var(--black);
+
+    svg {
+      transform: translateX(-20%);
+      margin-top: var(--space--xl);
+    }
+  }
+
+}
+
+// Mobile menu specific styles
+.m-sidebar--wrapper {
+  position: absolute;
+  height: 100vh;
+  top: 0;
+  right: 0;
+  transform: translateX(calc(100% + 4px));
+  visibility: hidden;
+  pointer-events: none;
+  background-color: var(--black);
+
+  .scroll-progress--wrapper {
+    height: 100%;
+    width: 4px;
+    background-color: rgba(245, 210, 210, 0.2);
+    top: 0;
+    position: absolute;
+    right: -4px;
+    z-index: 100;
+  }
+
+  .scroll-progress-bar {
+    min-height: 117px;
+    width: 4px;
+    position: absolute;
+    background-color: var(--pink);
+    top: 0;
+  }
+
+  .btn--wrapper {
+    transform: rotate(90deg);
+    max-width: 44px;
+  }
+
+
+  button.m-menu-btn {
+    background-color: var(--black);
+    border: none;
+    padding: 0;
+    margin: 0;
+    line-height: 1;
+    padding: var(--space--sm) var(--space--lg);
+    cursor: pointer;
+    font-size: var(--txt--xsm);
+    color: var(--pink);
+  }
+
+  @include for-tablet-down {
+    visibility: visible;
+    pointer-events: all;
+  }
+}

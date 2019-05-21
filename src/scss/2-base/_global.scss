@@ -1,0 +1,137 @@
+#main-wrapper {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~
+
+MAIN BODY CONTAINER
+
+~~~~~~~~~~~~~~~~~~~~~~ */
+
+main.home-content,
+main.dates-content,
+main.contact-content {
+  margin-left: 360px;
+  min-height: 100vh;
+
+  @include for-laptop-down {
+    margin-left: 25%;
+  }
+
+  @include for-tablet-down {
+    margin-left: 0;
+  }
+}
+
+
+/* ~~~~~~~~~~~~~~~~~~~~
+
+FOOTER STYLES
+
+~~~~~~~~~~~~~~~~~~~~~~ */
+
+footer.primary {
+  padding: var(--space--super) var(--space--xl) var(--space--xl) var(--space--xl);
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--txt--xsm);
+
+  @include for-phone-only {
+    padding: var(--space--super) var(--space--lg) var(--space--lg) var(--space--xl);
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+}
+
+ul.social-links {
+  li {
+    margin-bottom: var(--space--base);
+    position: relative;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
+    &::before,
+    &::before,
+    &::before {
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      left: calc((var(--space--base) * 2) * -1);
+      content: '';
+      background-repeat: no-repeat;
+      background-position: center center;
+      top: 0;
+      transform: translateY(50%);
+      background-image: none;
+      transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-image 0.3s ease-in-out;
+    }
+
+    &:nth-child(1):hover::before {
+      width: 15px;
+      height: 15px;
+      background-image: url('../assets/images/soundcloud-brands.svg');
+      background-size: 100% auto;
+      top: -2px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &:nth-child(2):hover::before {
+      width: 15px;
+      height: 15px;
+      background-image: url('../assets/images/spotify-brands.svg');
+      background-size: 100% auto;
+      top: -2px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    &:nth-child(3):hover::before {
+      width: 14px;
+      height: 14px;
+      background-image: url('../assets/images/instagram-brands.svg');
+      background-size: 100% auto;
+      top: -2px;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+  }
+
+  @include for-phone-only {
+    margin-bottom: var(--space--lg);
+  }
+}
+
+ul.author-information {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: space-between;
+  margin-left: var(--space--xxl);
+
+  @include for-phone-only {
+    margin-left: 0;
+
+  }
+
+  li.has-bar {
+    position: relative;
+
+    @include for-phone-only {
+      margin-bottom: var(--space--md);
+    }
+  }
+
+  li.has-bar::after {
+    content: '';
+    bottom: 6px;
+    right: 0;
+    position: absolute;
+    width: var(--space--md);
+    height: 2px;
+    background-color: var(--pink);
+  }
+}

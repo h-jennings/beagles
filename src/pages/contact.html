@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <div id="main-wrapper">
+    <%= require('html-loader!./components/sidebar.html') %>
+    <main class="contact-content">
+      <div class="content-wrapper">
+        <div class="main-content">
+          <h1>Contact</h1>
+          <p><span class="greeting">Hello.</span></p>
+          <p>I appreciate your interest in working with me. Please use the email link below to start the
+            booking process.</p>
+          <p>Serious inquires only, don't be an asshole. <span class="underline">No</span> frat parties or weddings.</p>
+          <p>✌️&nbsp; <span class="bolded">Beagles</span>.</p>
+        </div>
+        <div class="contact-information--wrapper">
+          <div class="txt--contact"><a href="mailto:derek.lai@gmail.com">derek.lai@gmail.com</a></div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+        </div>
+      </div>
+    </main>
+    <%= require('html-loader!./components/footer.html') %>
+  </div>
+</body>
+
+</html>

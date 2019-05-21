@@ -1,0 +1,38 @@
+{
+  "name": "derek",
+  "version": "1.0.0",
+  "description": "Website for Beagles",
+  "main": "index.js",
+  "scripts": {
+    "dev": "webpack-dev-server --open",
+    "dev-mobile": "webpack-dev-server --open --host 0.0.0.0",
+    "build": "webpack"
+  },
+  "author": "Hunter Jennings",
+  "license": "ISC",
+  "dependencies": {
+    "@barba/core": "^2.1.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "gsap": "^2.1.2",
+    "scrollmagic": "^2.0.6"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/preset-env": "^7.4.3",
+    "babel-loader": "^8.0.5",
+    "css-loader": "^2.1.1",
+    "file-loader": "^3.0.1",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  }
+}

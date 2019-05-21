@@ -1,0 +1,123 @@
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~
+    TYPOGRAPHY
+  ~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+@font-face {
+  font-family: 'Sporting Grotesque';
+  src: url('../assets/fonts/Sporting_Grotesque-Regular_web.woff2') format('woff2'),
+    url('../assets/fonts/Sporting_Grotesque-Regular_web.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Sporting Grotesque';
+  src: url('../assets/fonts/Sporting_Grotesque-Bold_web.woff2') format('woff2'),
+    url('../assets/fonts/Sporting_Grotesque-Bold_web.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
+
+html {
+  font-family: 'Sporting Grotesque', sans-serif;
+  font-weight: 400;
+  color: var(--pink);
+  background-color: var(--black);
+  line-height: 1.2;
+}
+
+a {
+  text-decoration: none;
+  color: var(--pink);
+}
+
+:root {
+  font-size: 18px;
+  --font-primary: 'Sporting Grotesque', sans-serif;
+  --base: 1rem;
+  --txt-scale: 1.618;
+  --txt--supersm: calc(1rem / (var(--txt-scale) * var(--txt-scale)));
+  --txt--xsm: calc(1rem / var(--txt-scale));
+  --txt--sm: calc(1rem * var(--txt-scale));
+  --txt--md: calc(1rem * (var(--txt-scale) * var(--txt-scale)));
+  --txt--lg: calc(1rem * (var(--txt-scale) * var(--txt-scale) * var(--txt-scale)));
+  --txt--xl: calc(1rem * (var(--txt-scale) * var(--txt-scale) * var(--txt-scale) * var(--txt-scale)));
+}
+
+.txt--xsm {
+  font-size: var(--txt--xsm);
+}
+
+p,
+.txt--base {
+  font-size: var(--base);
+}
+
+h2,
+.txt--sm {
+  font-size: var(--txt--sm);
+}
+
+
+h1,
+.txt--md {
+  font-size: var(--txt--md);
+}
+
+h1 {
+  font-weight: 700;
+}
+
+h2 {
+  line-height: 1.2;
+}
+
+@include for-phone-only {
+  h2 {
+    font-size: var(--base);
+    line-height: 1.5;
+  }
+}
+
+.txt--lg {
+  font-size: var(--txt--lg);
+}
+
+.txt--xl {
+  font-size: var(--txt--xl);
+}
+
+.txt--display {
+  font-size: 74px;
+  line-height: 1.2;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--pink);
+  font-weight: 700;
+  text-align: left;
+}
+
+.txt--contact,
+.txt--contact--deco {
+  font-size: var(--txt--lg);
+  line-height: 1.2;
+  font-weight: 700;
+  text-align: center;
+
+  @include for-laptop-down {
+    font-size: var(--txt--md);
+  }
+
+  @include for-tablet-down {
+    font-size: 6vw;
+  }
+}
+
+.txt--contact {
+  color: var(--pink);
+}
+
+.txt--contact--deco {
+  color: var(--black);
+  -webkit-text-stroke: 1px var(--pink);
+}

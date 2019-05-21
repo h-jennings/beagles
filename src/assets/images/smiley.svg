@@ -1,0 +1,16 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg>
+<svg version="1.1" baseProfile="full" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet" zoomAndPan="magnify"
+   id="Test File"
+   viewBox="-21 -21 42 42"
+   width="800"
+   height="800">
+<circle r="20" stroke="#f5d2d2" stroke-width=".15" fill="purple"/>
+<circle r="20" fill="url(#shine)"/>
+<g id="right">
+  <ellipse rx="2.5" ry="4" cx="-6" cy="-7" fill="#f5d2d2"/>
+  <path fill="none" stroke="#f5d2d2" stroke-width=".5" stroke-linecap="round" d="M 10.6,2.7 a 4,4,0 0,0 4,3"/>
+</g>
+<use xlink:href="#right" transform="scale(-1,1)"/>
+<path fill="none" stroke="#f5d2d2" stroke-width=".75" d="M -12,5 A 13.5,13.5,0 0,0 12,5 A 13,13,0 0,1 -12,5"/>
+</svg>

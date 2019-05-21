@@ -1,0 +1,68 @@
+/* ~~~~~~~~~~~~~~~~~
+
+COLOR VARIABLES
+
+~~~~~~~~~~~~~~~~~~~~*/
+
+:root {
+  --black: #262626;
+  --gray: #E4E6E1;
+  --white: #ffffff;
+  --pink: #f5d2d2;
+  --border-main: 4px solid var(--pink);
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~
+
+Breakpoints
+
+~~~~~~~~~~~~~~~~~~~~~~ */
+
+@mixin for-phone-only {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+
+@mixin for-grid-break {
+  @media (max-width: 698px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-down {
+  @media (max-width: 900px) {
+    @content;
+  }
+}
+
+@mixin for-tablet-landscape-down {
+  @media (max-width: 1000px) {
+    @content;
+  }
+}
+
+@mixin for-laptop-down {
+  @media screen and (max-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin for-desktop-down {
+  @media screen and (max-width: 1299px) {
+    @content;
+  }
+}
+
+
+@mixin for-desktop-up {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
+
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) {
+    @content;
+  }
+}

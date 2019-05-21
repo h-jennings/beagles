@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+</head>
+
+<body>
+  <div id="main-wrapper">
+    <%= require('html-loader!./components/sidebar.html') %>
+    <main class="dates-content">
+      <div class="content-wrapper">
+        <div class="img-container">
+          <img class="img-right" src="bw-youth-large.jpg" width="1152" height="1440">
+          <img class="img-left" src="1-2-large.jpg" width="1912" height="1120">
+        </div>
+        <div class="dates-table--wrapper">
+          <p class="table-title">COME THROUGH, FAM.</p>
+          <div class="dates-table">
+            <ul class="table-row">
+              <li class="event-number--container">
+                <div class="event-number txt--base">01</div>
+              </li>
+              <li class="event-date--container">
+                <div class="event-date txt--sm">january<span class="date-number txt--lg bolded">29</span></div>
+              </li>
+              <li class="event-name txt--base">Amtrac w/ Alex Noize</li>
+              <li class="event-location txt--base">Washington,<br> D.C.</li>
+              <li class="event-button--container">
+                <button></button>
+              </li>
+            </ul>
+            <ul class="table-row">
+              <li class="event-number--container">
+                <div class="event-number txt--base">02</div>
+              </li>
+              <li class="event-date--container">
+                <div class="event-date txt--sm">april<span class="date-number txt--lg bolded">21</span></div>
+              </li>
+              <li class="event-name txt--base">Nuanroidsaplalooza</li>
+              <li class="event-location txt--base">Washington,<br> D.C.</li>
+              <li class="event-button--container">
+                <button></button>
+              </li>
+            </ul>
+            <ul class="table-row">
+              <li class="event-number--container">
+                <div class="event-number txt--base">03</div>
+              </li>
+              <li class="event-date--container">
+                <div class="event-date txt--sm">june<span class="date-number txt--lg bolded">10</span></div>
+              </li>
+              <li class="event-name txt--base">Welcome to the show</li>
+              <li class="event-location txt--base">New York City,<br> NY</li>
+              <li class="event-button--container">
+                <button></button>
+              </li>
+            </ul>
+            <div class="table-show-more--section">
+              <div class="show-more-icon--container">
+                <svg width="10" height="42" xmlns="http://www.w3.org/2000/svg">
+                  <g transform="translate(1 1)" stroke="#F5D2D2" fill="none" fill-rule="evenodd">
+                    <circle cx="4" cy="4" r="4" />
+                    <circle cx="4" cy="20" r="4" />
+                    <circle cx="4" cy="36" r="4" />
+                  </g>
+                </svg>
+              </div>
+              <button class="show-more">
+                <svg width="54" height="54" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M0 22.3493h22.2201V0h9.5598v22.3493H54v9.3014H31.7799V54h-9.5598V31.6507H0z" fill="#262626"
+                    fill-rule="evenodd" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <section class="availability--container">
+            <div class="txt--display"><span class="opacity-40">I am currently</span><br><span
+                class="no-txt-outline">available</span> <span class="opacity-40">for<br>
+                new
+                bookings.</span></div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <%= require('html-loader!./components/footer.html') %>
+  </div>
+</body>
+
+</html>

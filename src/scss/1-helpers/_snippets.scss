@@ -1,0 +1,34 @@
+.flex-container--centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.bolded {
+  font-weight: 700;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.bg-pink {
+  background-color: var(--pink);
+}
+
+.no-txt-outline {
+  -webkit-text-stroke: 0;
+  color: var(--pink);
+}
+
+.opacity-40 {
+  opacity: 0.4;
+}
