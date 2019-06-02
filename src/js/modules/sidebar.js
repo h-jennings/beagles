@@ -7,6 +7,7 @@ export default class Sidebar {
     this.transitionBlock = document.querySelector('.transition-block');
     this.menuBtn = document.querySelector('button.menu--btn');
     this.menuBtnTxt = document.querySelector('.menu--txt');
+    this.mobileMenuBtn = document.querySelector('button.m-menu-btn');
     this.hamburger = document.querySelector('.hamburger');
     this.hamburgerBars = document.querySelectorAll('.bar');
     this.bookTxt = document.querySelector('.book--txt');
@@ -25,6 +26,7 @@ export default class Sidebar {
 
     // Calling the browser check method
     this.isMobile = false;
+    this.hasMobileMenuBeenSet = false;
     this.browserCheck();
   }
 
@@ -34,69 +36,87 @@ export default class Sidebar {
     this.sidebar.dataset.state = 'closed';
 
     // Handles clicks for desktop menu
-    const menuClickHandler = (e) => {
-      const buttonDataset = e.target.dataset.buttonType;
+    const clickHandler = (e) => {
+      const buttonDataset = e.currentTarget.dataset.buttonType;
+      if (buttonDataset === 'hamburger') {
+        e.stopPropagation();
+      }
 
       const eventOptions = {
         menu: {
-          functions: [this.openMenuAnimation.bind(this), this.changeButtonState.bind(this)],
+          functions: [
+            this.openMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
         },
         book: {
-          functions: [this.closeMenuAnimation.bind(this), this.changeButtonState.bind(this)],
+          functions: [
+            this.closeMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
+        },
+        hamburger: {
+          functions: [
+            this.openMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
+        },
+        close: {
+          functions: [
+            this.closeMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
+        },
+        mobileMenu: {
+          functions: [],
         },
       };
 
+      /*
+
+      ! MAGIC HAPPENING HERE
+
+      This runs the corresponding functions into the 'eventOptions' object
+      based on the event target's data- attribute (which represents the button's functionality)
+
+      */
+
       if (!this.isMobile) {
-        /*
-
-        ! MAGIC HAPPENING HERE
-
-        This runs the corresponding functions int the 'eventOptions' object
-        based on the event target's data- attribute (which represents the button's functionality)
-
-        */
-
         eventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
-      }
-    };
+      } else {
+        // run mobile specific animations here
 
-    const hamburgerClickHandler = (e) => {
-      if (!this.isMobile) {
-        e.stopPropagation();
-        this.openMenuAnimation();
-        this.changeButtonState('book');
-      }
-    };
-
-    const closeClickHandler = (e) => {
-      const buttonDataset = e.target.dataset;
-
-      if (!this.isMobile) {
-        this.closeMenuAnimation();
-        this.changeButtonState(buttonDataset.buttonType);
+        // Setting
       }
     };
 
     // Adding event listeners
-    this.menuBtn.addEventListener('click', menuClickHandler);
-    this.hamburger.addEventListener('click', hamburgerClickHandler);
-    this.closeMenuBtn.addEventListener('click', closeClickHandler);
+    [this.menuBtn, this.hamburger, this.closeMenuBtn].forEach(elm => elm.addEventListener('click', clickHandler));
 
     // Running the browser check on resize to reset the isMobile variable
-    window.addEventListener('resize', this.browserCheck);
+    window.addEventListener('resize', this.browserCheck.bind(this));
   }
 
   // checking browser width and setting the 'isMobile' boolean accordingly
   browserCheck() {
-    // debugger;
     document.body.getBoundingClientRect().width <= 900
       ? this.isMobile = true
       : this.isMobile = false;
+
+    // If it's not a mobile device then return early
+    if (!this.isMobile) return;
+
+    // If it's not a mobile device then return early
+    if (this.isMobile && this.hasMobileMenuBeenSet) return;
+
+    this.setMobileMenu();
   }
 
   changeButtonState(state) {
+    const menuButtonStates = ['menu', 'hamburger'];
     let btnState = state;
-    btnState === 'menu' ? btnState = 'book' : btnState = 'menu';
+
+    menuButtonStates.includes(state) ? btnState = 'book' : btnState = 'menu';
 
     if (btnState === 'book') {
       this.setBookFn();
@@ -115,6 +135,18 @@ export default class Sidebar {
     // ! Need to add this functionality back in once the page transition logic is needed
     // this.menuBtn.removeAttribute('onclick');
     this.menuBtn.dataset.buttonType = 'menu';
+  }
+
+  setMobileMenu() {
+    this.hasMobileMenuBeenSet = true;
+    this.menuBtnTxt.style.opacity = 0;
+    this.hamburger.style.opacity = 0;
+    this.hamburger.style.display = 'none';
+    this.hamburgerBars.forEach(bar => bar.setAttribute('style', 'transform: translateX(-100%)'));
+    this.sideBarLinks.style.display = 'flex';
+    [this.bookTxt, this.closeMenuBtn]
+      .forEach(elm => elm.setAttribute('style', 'opacity: 1; display: inline-block;'));
+    this.transitionBlock.style.transform = 'translate(0, 100%)';
   }
 
   openMenuAnimation() {

@@ -105,6 +105,7 @@ aside.sidebar {
     cursor: pointer;
   }
 
+  // ! Consider just referencing the class here instead of the button state (separate styling from logic)
   button[data-button-type="menu"],
   button[data-button-type="book"] {
     width: 100%;
