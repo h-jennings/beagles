@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --open",
+    "dev-chrome": "webpack-dev-server --open 'Google Chrome'",
     "dev-mobile": "webpack-dev-server --open --host 0.0.0.0",
     "build": "webpack"
   },

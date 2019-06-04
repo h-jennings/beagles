@@ -3,7 +3,10 @@ import { TimelineMax, Power3 } from 'gsap';
 
 export default class Sidebar {
   constructor() {
+    this.body = document.body;
     this.sidebar = document.querySelector('aside.sidebar');
+    this.mobileSidebarWrapper = document.querySelector('.m-sidebar--wrapper');
+    this.contentWrapper = document.querySelector('.content-wrapper');
     this.transitionBlock = document.querySelector('.transition-block');
     this.menuBtn = document.querySelector('button.menu--btn');
     this.menuBtnTxt = document.querySelector('.menu--txt');
@@ -19,6 +22,7 @@ export default class Sidebar {
     this.defaultDuration = 0.3;
     this.defaultStagger = 0.1;
     this.defaultDelay = 0.1;
+    this.longerDelay = 0.4;
     this.durationLonger = 0.5;
 
     // Calling the init function
@@ -42,7 +46,7 @@ export default class Sidebar {
         e.stopPropagation();
       }
 
-      const eventOptions = {
+      const desktopEventOptions = {
         menu: {
           functions: [
             this.openMenuAnimation.bind(this),
@@ -67,8 +71,15 @@ export default class Sidebar {
             this.changeButtonState.bind(this),
           ],
         },
+      };
+
+      // ! Need to add all of the mobile styles here
+      // ! These will be evaluated the same way the desktop click handlers were evaluated
+      const mobileEventOptions = {
         mobileMenu: {
-          functions: [],
+          functions: [
+            this.openMobileMenuAnimation.bind(this),
+          ],
         },
       };
 
@@ -80,18 +91,18 @@ export default class Sidebar {
       based on the event target's data- attribute (which represents the button's functionality)
 
       */
-
       if (!this.isMobile) {
-        eventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
+        desktopEventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
       } else {
         // run mobile specific animations here
 
-        // Setting
+        // Evaluating and running the mobile specific functions based on their data attributes
+        mobileEventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
       }
     };
 
     // Adding event listeners
-    [this.menuBtn, this.hamburger, this.closeMenuBtn].forEach(elm => elm.addEventListener('click', clickHandler));
+    [this.menuBtn, this.hamburger, this.closeMenuBtn, this.mobileMenuBtn].forEach(elm => elm.addEventListener('click', clickHandler));
 
     // Running the browser check on resize to reset the isMobile variable
     window.addEventListener('resize', this.browserCheck.bind(this));
@@ -109,6 +120,7 @@ export default class Sidebar {
     // If it's not a mobile device then return early
     if (this.isMobile && this.hasMobileMenuBeenSet) return;
 
+    // Resetting the styles of the menu to be in the 'open state'  if it's a mobile device
     this.setMobileMenu();
   }
 
@@ -137,6 +149,7 @@ export default class Sidebar {
     this.menuBtn.dataset.buttonType = 'menu';
   }
 
+  // Resets mobile menu styles once the mobile device is detected
   setMobileMenu() {
     this.hasMobileMenuBeenSet = true;
     this.menuBtnTxt.style.opacity = 0;
@@ -147,6 +160,57 @@ export default class Sidebar {
     [this.bookTxt, this.closeMenuBtn]
       .forEach(elm => elm.setAttribute('style', 'opacity: 1; display: inline-block;'));
     this.transitionBlock.style.transform = 'translate(0, 100%)';
+  }
+
+  openMobileMenuAnimation() {
+    const openMobileMenuAnimationMasterTl = new TimelineMax();
+
+    const fadeOutMobileContent = () => {
+      const fadeOutContentTl = new TimelineMax();
+      fadeOutContentTl
+        .to([this.mobileSidebarWrapper, this.contentWrapper], this.defaultDuration, {
+          ease: this.defaultEase,
+          opacity: 0,
+        })
+        .to(this.body, this.defaultDuration, {
+          overflow: 'hidden',
+        }, `-=${this.defaultDuration}`)
+        .set(this.transitionBlock, {
+          x: '0%',
+          y: '0%',
+        });
+
+      return fadeOutContentTl;
+    };
+
+    const mobileSidebarSlideAnimation = () => {
+      const sideBarSlideTl = new TimelineMax();
+
+      sideBarSlideTl
+        .to(this.transitionBlock, this.defaultDuration, {
+          ease: this.defaultEase,
+          x: '100%',
+        })
+        .to(this.sidebar, this.durationLonger, {
+          ease: this.defaultEase,
+          x: '0%',
+          delay: this.defaultDelay,
+        })
+        .to(this.transitionBlock, this.durationLonger, {
+          ease: this.defaultEase,
+          delay: this.defaultDelay,
+          x: '200%',
+        })
+        .set(this.transitionBlock, {
+          x: '-100%',
+        });
+
+      return sideBarSlideTl;
+    };
+
+    openMobileMenuAnimationMasterTl
+      .add(fadeOutMobileContent())
+      .add(mobileSidebarSlideAnimation());
   }
 
   openMenuAnimation() {
