@@ -14,6 +14,18 @@ Sidebar CSS
   }
 }
 
+.mobile-menu-transition-block {
+  height: 100vh;
+  position: fixed;
+  background-color: var(--pink);
+  z-index: 11;
+  width: 100vw;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform: translateX(-100%);
+}
+
 // Desktop Sidebar styles
 aside.sidebar {
   overflow: visible;
@@ -27,14 +39,14 @@ aside.sidebar {
     transform: translateX(-100%);
     width: 100%;
     max-width: unset;
-    z-index: 100;
+    z-index: 10;
   }
 
-  .transition-block {
+  .desktop-sidebar-transition-block {
     height: 100%;
     position: absolute;
     background-color: var(--pink);
-    z-index: 5;
+    z-index: 11;
     width: 100%;
     transform: translateY(-100%);
   }
@@ -96,6 +108,21 @@ aside.sidebar {
 
       &:nth-child(3)::before {
         content: '03';
+      }
+
+      a {
+        position: relative;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        display: inline-block;
+        color: var(--pink);
+        -webkit-text-stroke: 0px var(--pink);
+      }
+
+      a:hover {
+        transition: all 0.3s ease-in-out;
+        -webkit-text-stroke: 1px var(--pink);
+        color: transparent;
       }
     }
 
@@ -257,7 +284,7 @@ aside.sidebar {
     top: 0;
     position: absolute;
     right: -4px;
-    z-index: 100;
+    z-index: 10;
   }
 
   .scroll-progress-bar {

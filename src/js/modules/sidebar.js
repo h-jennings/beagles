@@ -1,4 +1,4 @@
-import { TimelineMax, Power3 } from 'gsap';
+import { TimelineMax, Power3, TimelineLite } from 'gsap';
 
 
 export default class Sidebar {
@@ -7,15 +7,18 @@ export default class Sidebar {
     this.sidebar = document.querySelector('aside.sidebar');
     this.mobileSidebarWrapper = document.querySelector('.m-sidebar--wrapper');
     this.contentWrapper = document.querySelector('.content-wrapper');
-    this.transitionBlock = document.querySelector('.transition-block');
+    this.desktopTransitionBlock = document.querySelector('.desktop-sidebar-transition-block');
+    this.mobileTransitionBlock = document.querySelector('.mobile-menu-transition-block');
     this.menuBtn = document.querySelector('button.menu--btn');
     this.menuBtnTxt = document.querySelector('.menu--txt');
     this.mobileMenuBtn = document.querySelector('button.m-menu-btn');
     this.hamburger = document.querySelector('.hamburger');
     this.hamburgerBars = document.querySelectorAll('.bar');
     this.bookTxt = document.querySelector('.book--txt');
-    this.sideBarLinks = document.querySelector('nav.sidebar-links');
+    this.sideBarLinkWrapper = document.querySelector('nav.sidebar-links');
+    this.sideBarLinks = document.querySelectorAll('nav.sidebar-links li');
     this.closeMenuBtn = document.querySelector('button[data-button-type="close"]');
+    this.mainFooter = document.querySelector('footer.primary');
 
     // Animation Values
     this.defaultEase = Power3.easeInOut;
@@ -79,6 +82,19 @@ export default class Sidebar {
         mobileMenu: {
           functions: [
             this.openMobileMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
+        },
+        close: {
+          functions: [
+            this.closeMobileMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
+          ],
+        },
+        book: {
+          functions: [
+            this.closeMobileMenuAnimation.bind(this),
+            this.changeButtonState.bind(this),
           ],
         },
       };
@@ -95,7 +111,6 @@ export default class Sidebar {
         desktopEventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
       } else {
         // run mobile specific animations here
-
         // Evaluating and running the mobile specific functions based on their data attributes
         mobileEventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
       }
@@ -125,11 +140,10 @@ export default class Sidebar {
   }
 
   changeButtonState(state) {
-    const menuButtonStates = ['menu', 'hamburger'];
+    const menuButtonStates = ['menu', 'hamburger', 'mobileMenu'];
     let btnState = state;
 
     menuButtonStates.includes(state) ? btnState = 'book' : btnState = 'menu';
-
     if (btnState === 'book') {
       this.setBookFn();
     } else {
@@ -156,10 +170,9 @@ export default class Sidebar {
     this.hamburger.style.opacity = 0;
     this.hamburger.style.display = 'none';
     this.hamburgerBars.forEach(bar => bar.setAttribute('style', 'transform: translateX(-100%)'));
-    this.sideBarLinks.style.display = 'flex';
+    this.sideBarLinkWrapper.style.display = 'flex';
     [this.bookTxt, this.closeMenuBtn]
       .forEach(elm => elm.setAttribute('style', 'opacity: 1; display: inline-block;'));
-    this.transitionBlock.style.transform = 'translate(0, 100%)';
   }
 
   openMobileMenuAnimation() {
@@ -168,49 +181,126 @@ export default class Sidebar {
     const fadeOutMobileContent = () => {
       const fadeOutContentTl = new TimelineMax();
       fadeOutContentTl
-        .to([this.mobileSidebarWrapper, this.contentWrapper], this.defaultDuration, {
+        .to([this.mobileSidebarWrapper, this.contentWrapper, this.mainFooter], this.defaultDuration, {
           ease: this.defaultEase,
           opacity: 0,
         })
         .to(this.body, this.defaultDuration, {
           overflow: 'hidden',
-        }, `-=${this.defaultDuration}`)
-        .set(this.transitionBlock, {
-          x: '0%',
-          y: '0%',
-        });
+        }, `-=${this.defaultDuration}`);
 
       return fadeOutContentTl;
     };
 
-    const mobileSidebarSlideAnimation = () => {
+    const mobileSidebarSlideInAnimation = () => {
       const sideBarSlideTl = new TimelineMax();
 
       sideBarSlideTl
-        .to(this.transitionBlock, this.defaultDuration, {
-          ease: this.defaultEase,
-          x: '100%',
+        .set(this.mobileTransitionBlock, {
+          opacity: 1,
+          visibility: 'visible',
         })
-        .to(this.sidebar, this.durationLonger, {
-          ease: this.defaultEase,
+        .to(this.mobileTransitionBlock, this.defaultDuration, {
           x: '0%',
-          delay: this.defaultDelay,
+          delay: this.longerDelay,
         })
-        .to(this.transitionBlock, this.durationLonger, {
-          ease: this.defaultEase,
-          delay: this.defaultDelay,
-          x: '200%',
+        .set(this.sidebar, {
+          x: '0%',
         })
-        .set(this.transitionBlock, {
-          x: '-100%',
+        .to(this.mobileTransitionBlock, this.defaultDuration, {
+          x: '100%',
+          delay: this.longerDelay,
+        })
+        .staggerFromTo(this.sideBarLinks, this.durationLonger, {
+          y: '-20%',
+          opacity: 0,
+        }, {
+          y: '0%',
+          opacity: 1,
+        }, this.defaultStagger)
+        .fromTo(this.bookTxt, this.defaultDuration, {
+          opacity: 0,
+        }, {
+          opacity: 1,
         });
 
       return sideBarSlideTl;
     };
-
     openMobileMenuAnimationMasterTl
       .add(fadeOutMobileContent())
-      .add(mobileSidebarSlideAnimation());
+      .add(mobileSidebarSlideInAnimation());
+  }
+
+  closeMobileMenuAnimation() {
+    const closeMobileMenuAnimationTl = new TimelineMax();
+
+    const fadeOutMobileMenuContent = () => {
+      const fadeOutMobileMenuContentTl = new TimelineMax();
+
+      const reversedSidebarLinks = [...this.sideBarLinks].reverse();
+
+      fadeOutMobileMenuContentTl
+        .to(this.bookTxt, this.defaultDuration, {
+          opacity: 0,
+        })
+        .staggerTo(reversedSidebarLinks, this.defaultDuration, {
+          opacity: 0,
+        }, this.defaultStagger)
+        .to(this.sidebar, this.durationLonger, {
+          opacity: 0,
+        });
+
+      return fadeOutMobileMenuContentTl;
+    };
+
+    const fadeInMainContent = () => {
+      const fadeInContentTl = new TimelineMax();
+      fadeInContentTl
+        .set(this.sidebar, {
+          opacity: 1,
+        })
+        .to(this.mobileSidebarWrapper, this.defaultDuration, {
+          ease: this.defaultEase,
+          opacity: 1,
+        })
+        .to([this.contentWrapper, this.mainFooter], this.defaultDuration, {
+          ease: this.defaultEase,
+          opacity: 1,
+          delay: this.defaultDelay,
+        }, `-=${this.defaultDuration}`)
+        .set(this.body, {
+          overflow: 'visible',
+        }, `-=${this.defaultDuration}`);
+
+      return fadeInContentTl;
+    };
+
+    const mobileSidebarSlideOutAnimation = () => {
+      const sideBarSlideInTl = new TimelineMax();
+
+      sideBarSlideInTl
+        .to(this.mobileTransitionBlock, this.defaultDuration, {
+          ease: this.defaultEase,
+          x: '0%',
+        })
+        .set(this.sidebar, {
+          x: '-100%',
+        })
+        .to(this.mobileTransitionBlock, this.durationLonger, {
+          ease: this.defaultEase,
+          x: '-100%',
+          delay: this.longerDelay,
+        });
+
+      return sideBarSlideInTl;
+    };
+
+    closeMobileMenuAnimationTl
+      .add(fadeOutMobileMenuContent())
+      .add(mobileSidebarSlideOutAnimation(), `-=${this.defaultDuration}`)
+      .add(fadeInMainContent());
+
+    // closeMobileMenuAnimationTl.timeScale(0.20);
   }
 
   openMenuAnimation() {
@@ -242,17 +332,17 @@ export default class Sidebar {
       const sideBarTransitionTl = new TimelineMax();
 
       sideBarTransitionTl
-        .to(this.transitionBlock, this.durationLonger, {
+        .to(this.desktopTransitionBlock, this.durationLonger, {
           y: '0%',
           ease: this.defaultEase,
         })
-        .to(this.sideBarLinks, 0, {
+        .to(this.sideBarLinkWrapper, 0, {
           display: 'flex',
         })
         .to([this.bookTxt, this.closeMenuBtn], 0, {
           display: 'inline-block',
         })
-        .to(this.transitionBlock, this.durationLonger, {
+        .to(this.desktopTransitionBlock, this.durationLonger, {
           y: '100%',
           ease: this.defaultEase,
           delay: this.defaultDelay,
@@ -282,7 +372,7 @@ export default class Sidebar {
           opacity: 0,
           ease: this.defaultEase,
         })
-        .to(this.transitionBlock, this.durationLonger, {
+        .to(this.desktopTransitionBlock, this.durationLonger, {
           y: '0%',
           ease: this.defaultEase,
           delay: this.defaultDelay,
@@ -293,13 +383,13 @@ export default class Sidebar {
         .to(this.hamburgerBars, 0, {
           x: '100%',
         })
-        .to(this.sideBarLinks, 0, {
+        .to(this.sideBarLinkWrapper, 0, {
           display: 'none',
         })
         .to([this.bookTxt, this.closeMenuBtn], 0, {
           display: 'none',
         })
-        .to(this.transitionBlock, this.durationLonger, {
+        .to(this.desktopTransitionBlock, this.durationLonger, {
           y: '-100%',
           ease: this.defaultEase,
           delay: this.defaultDelay,
