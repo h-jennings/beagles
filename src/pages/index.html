@@ -9,9 +9,9 @@
 </head>
 
 <body>
-  <div id="main-wrapper">
+  <div id="main-wrapper" data-barba="wrapper">
     <%= require('html-loader!./components/sidebar.html') %>
-    <main class="home-content">
+    <main class="home-content" data-barba="container" data-barba-namespace="home">
       <div class="content-wrapper">
         <h2>Collections and vibes<br> from D.C. based DJ<br> known as <span class="bolded">Beagles</span>.</h2>
         <div class="music-wrapper">
@@ -125,8 +125,8 @@
           </div>
         </div>
       </div>
+      <%= require('html-loader!./components/footer.html') %>
     </main>
-    <%= require('html-loader!./components/footer.html') %>
   </div>
 </body>
 

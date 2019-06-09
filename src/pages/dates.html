@@ -9,9 +9,9 @@
 </head>
 
 <body>
-  <div id="main-wrapper">
+  <div id="main-wrapper" data-barba="wrapper">
     <%= require('html-loader!./components/sidebar.html') %>
-    <main class="dates-content">
+    <main class="dates-content" data-barba="container" data-barba-namespace="dates">
       <div class="content-wrapper">
         <div class="img-container">
           <img class="img-right" src="bw-youth-large.jpg" width="1152" height="1440">
@@ -85,8 +85,8 @@
           </section>
         </div>
       </div>
+      <%= require('html-loader!./components/footer.html') %>
     </main>
-    <%= require('html-loader!./components/footer.html') %>
   </div>
 </body>
 

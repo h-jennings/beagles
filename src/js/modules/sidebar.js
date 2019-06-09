@@ -1,6 +1,5 @@
 import { TimelineMax, Power3, TimelineLite } from 'gsap';
 
-
 export default class Sidebar {
   constructor() {
     this.body = document.body;
@@ -29,7 +28,7 @@ export default class Sidebar {
     this.durationLonger = 0.5;
 
     // Calling the init function
-    this.init();
+    this.initSidebar();
 
     // Calling the browser check method
     this.isMobile = false;
@@ -38,7 +37,7 @@ export default class Sidebar {
   }
 
   // Initializes object
-  init() {
+  initSidebar() {
     // setting sidebar state
     this.sidebar.dataset.state = 'closed';
 
@@ -129,6 +128,11 @@ export default class Sidebar {
       ? this.isMobile = true
       : this.isMobile = false;
 
+    // ! There's a bug where if a user resizes to mobile
+    // ! then to desktop, then opens the hamburger menu, switches to mobile and hits
+    // ! the menu again, the button state is still 'book', which leads to the wrong
+    // ! animation running.
+
     // If it's not a mobile device then return early
     if (!this.isMobile) return;
 
@@ -181,10 +185,15 @@ export default class Sidebar {
     const fadeOutMobileContent = () => {
       const fadeOutContentTl = new TimelineMax();
       fadeOutContentTl
-        .to([this.mobileSidebarWrapper, this.contentWrapper, this.mainFooter], this.defaultDuration, {
-          ease: this.defaultEase,
-          opacity: 0,
-        })
+        .to(
+          [this.mobileSidebarWrapper,
+            this.contentWrapper,
+            this.mainFooter],
+          this.defaultDuration, {
+            ease: this.defaultEase,
+            opacity: 0,
+          },
+        )
         .to(this.body, this.defaultDuration, {
           overflow: 'hidden',
         }, `-=${this.defaultDuration}`);
@@ -299,8 +308,6 @@ export default class Sidebar {
       .add(fadeOutMobileMenuContent())
       .add(mobileSidebarSlideOutAnimation(), `-=${this.defaultDuration}`)
       .add(fadeInMainContent());
-
-    // closeMobileMenuAnimationTl.timeScale(0.20);
   }
 
   openMenuAnimation() {
@@ -372,13 +379,16 @@ export default class Sidebar {
           opacity: 0,
           ease: this.defaultEase,
         })
-        .to(this.desktopTransitionBlock, this.durationLonger, {
+        .fromTo(this.desktopTransitionBlock, this.durationLonger, {
+          y: '100%',
+        }, {
           y: '0%',
           ease: this.defaultEase,
           delay: this.defaultDelay,
         })
         .to(this.hamburger, 0, {
           display: 'unset',
+          opacity: 1,
         })
         .to(this.hamburgerBars, 0, {
           x: '100%',

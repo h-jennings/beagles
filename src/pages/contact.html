@@ -9,9 +9,9 @@
 </head>
 
 <body>
-  <div id="main-wrapper">
+  <div id="main-wrapper" data-barba="wrapper">
     <%= require('html-loader!./components/sidebar.html') %>
-    <main class="contact-content">
+    <main class="contact-content" data-barba="container" data-barba-namespace="contact">
       <div class="content-wrapper">
         <div class="main-content">
           <h1>Contact</h1>
@@ -32,8 +32,8 @@
           <div class="txt--contact--deco">derek.lai@gmail.com</div>
         </div>
       </div>
+      <%= require('html-loader!./components/footer.html') %>
     </main>
-    <%= require('html-loader!./components/footer.html') %>
   </div>
 </body>
 
