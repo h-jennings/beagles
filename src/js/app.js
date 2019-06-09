@@ -1,6 +1,7 @@
 import '../scss/main.scss';
 import PageTransitions from './modules/pageTransitions';
 import Sidebar from './modules/sidebar';
+import config from './config';
 
 const images = require.context('../assets/images/', true, /\.jpg|.svg$/);
 images.keys().map(images);
@@ -19,6 +20,5 @@ const initApp = new Promise((resolve, reject) => {
 
 initApp
   .then(() => {
-    const pageTransitions = new PageTransitions();
-    const sidebar = new Sidebar();
+    const sidebar = new Sidebar(config);
   });
