@@ -1,24 +1,41 @@
 import '../scss/main.scss';
-import PageTransitions from './modules/pageTransitions';
-import Sidebar from './modules/sidebar';
 import config from './config';
+import Sidebar from './modules/sidebar';
 
-const images = require.context('../assets/images/', true, /\.jpg|.svg$/);
-images.keys().map(images);
+class App {
+  static start() {
+    return new App();
+  }
 
-const initApp = new Promise((resolve, reject) => {
-  const checkBrowserLoadingState = () => {
-    if (document.readyState === 'interactive' || document.readyState === 'complete') {
-      resolve();
-    } else {
-      requestAnimationFrame(checkBrowserLoadingState);
-    }
-  };
+  constructor() {
+    Promise.all([
+      App.domReady(),
+    ])
+      .then(this.init.bind(this))
+      .catch(err => console.error(err));
+  }
 
-  requestAnimationFrame(checkBrowserLoadingState);
-});
+  static showPage() {
+    document.documentElement.classList.add('ready');
+  }
 
-initApp
-  .then(() => {
-    const sidebar = new Sidebar(config);
-  });
+  static domReady() {
+    return new Promise((resolve) => {
+      document.addEventListener('DOMContentLoaded', resolve);
+    });
+  }
+
+  static initSidebarLogic() {
+    return new Sidebar(config);
+  }
+
+  static init() {
+    const images = require.context('../assets/images/', true, /\.jpg|.svg$/);
+    images.keys().map(images);
+
+    App.showPage();
+    App.initSidebarLogic();
+  }
+}
+
+App.start();

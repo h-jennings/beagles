@@ -47,7 +47,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'Beagles ⸺ Music',
+      title: 'Beagles ⸺ Home',
       template: './src/pages/index.html',
       filename: 'index.html',
     }),
