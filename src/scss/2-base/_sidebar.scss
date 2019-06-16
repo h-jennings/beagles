@@ -14,6 +14,12 @@ Sidebar CSS
   }
 }
 
+/* ~~~~~~~~~~~~~~~~~~~~
+
+MOBILE SIDEBAR STYLES
+
+~~~~~~~~~~~~~~~~~~~~~~ */
+
 .mobile-menu-transition-block {
   height: 100vh;
   position: fixed;
@@ -35,14 +41,26 @@ aside.sidebar {
   border-right: var(--border-main);
   width: 25%;
 
-  @include for-tablet-down {
+  &[data-type="mobile"] {
+    display: none;
+    border-right: none;
     transform: translateX(-100%);
     width: 100%;
     max-width: unset;
     z-index: 10;
+
+    @include for-tablet-down {
+      display: unset;
+    }
   }
 
-  .desktop-sidebar-transition-block {
+  &[data-type="desktop"] {
+    @include for-tablet-down {
+      display: none;
+    }
+  }
+
+  .d-sidebar-transition-block {
     height: 100%;
     position: absolute;
     background-color: var(--pink);
@@ -51,8 +69,16 @@ aside.sidebar {
     transform: translateY(-100%);
   }
 
-  nav.sidebar-links {
+  nav.d-sidebar-links {
     display: none;
+  }
+
+  .m-sidebar-links {
+    display: flex;
+  }
+
+  nav.d-sidebar-links,
+  nav.m-sidebar-links {
     width: 100%;
     background-color: var(--black);
     height: calc(100vh - var(--btn--height));
@@ -111,10 +137,6 @@ aside.sidebar {
       }
 
       a {
-        position: relative;
-        overflow-x: hidden;
-        overflow-y: hidden;
-        display: inline-block;
         color: var(--pink);
         -webkit-text-stroke: 0px var(--pink);
       }
@@ -132,9 +154,9 @@ aside.sidebar {
     cursor: pointer;
   }
 
-  // ! Consider just referencing the class here instead of the button state (separate styling from logic)
-  button[data-button-type="menu"],
-  button[data-button-type="book"] {
+  .menu--btn,
+  .d-book--btn,
+  .m-book--btn {
     width: 100%;
     background-color: var(--pink);
     min-height: var(--btn--height);
@@ -148,7 +170,15 @@ aside.sidebar {
     padding: 0;
   }
 
-  button[data-button-type="close"] {
+  &[data-type="desktop"] {
+    .d-book--btn {
+      display: none;
+    }
+  }
+
+
+  button.m-close,
+  button.d-close {
     cursor: pointer;
     position: absolute;
     top: var(--space--sm);
@@ -201,9 +231,13 @@ aside.sidebar {
     text-align: center;
   }
 
-  .book--txt {
+  .d-book--txt {
     display: none;
     opacity: 0;
+  }
+
+  .d-book--txt,
+  .m-book--txt {
     font-family: var(--font-primary);
 
     @include for-laptop-down {
@@ -230,27 +264,6 @@ aside.sidebar {
       margin-bottom: var(--space--base);
     }
   }
-
-  /*
-
-  &[data-state="open"] {
-    .menu--txt {
-      display: none;
-    }
-
-    .hamburger {
-      display: none;
-    }
-
-    .book--txt {
-      display: inline-block;
-    }
-
-    nav.sidebar-links {
-      display: flex;
-    }
-  }
-  */
 
   .name-wrapper {
     z-index: 2;

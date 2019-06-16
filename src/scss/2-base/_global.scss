@@ -2,6 +2,10 @@
   -webkit-overflow-scrolling: touch;
 }
 
+*:focus {
+  outline-color: var(--pink);
+}
+
 /* ~~~~~~~~~~~~~~~~~~~~
 
 MAIN BODY CONTAINER

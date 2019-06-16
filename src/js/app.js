@@ -8,10 +8,14 @@ class App {
   }
 
   constructor() {
+    this.menuState = {
+      mobileMenuReset: false,
+      desktopMenuReset: false,
+    };
     Promise.all([
       App.domReady(),
     ])
-      .then(this.init.bind(this))
+      .then(App.init.bind(this))
       .catch(err => console.error(err));
   }
 

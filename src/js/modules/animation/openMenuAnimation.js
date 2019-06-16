@@ -35,10 +35,16 @@ export default function openMenuAnimation() {
         y: '0%',
         ease: animation.defaultEase,
       })
-      .to(elm.sideBarLinkWrapper, 0, {
+      .set(elm.desktopSideBarLinkWrapper, {
         display: 'flex',
       })
-      .to([elm.bookTxt, elm.closeMenuBtn], 0, {
+      .set(elm.menuBtn, {
+        display: 'none',
+      })
+      .set(elm.desktopBookBtn, {
+        display: 'unset',
+      })
+      .to([elm.desktopBookTxt, elm.closeMenuBtnDesktop], 0, {
         display: 'inline-block',
       })
       .to(elm.desktopTransitionBlock, animation.durationLonger, {
@@ -46,7 +52,7 @@ export default function openMenuAnimation() {
         ease: animation.defaultEase,
         delay: animation.defaultDelay,
       })
-      .to([elm.bookTxt, elm.closeMenuBtn], animation.defaultDuration, {
+      .to([elm.desktopBookTxt, elm.closeMenuBtnDesktop], animation.defaultDuration, {
         opacity: 1,
         ease: animation.defaultEase,
         delay: animation.defaultDelay,

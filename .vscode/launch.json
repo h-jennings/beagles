@@ -9,7 +9,7 @@
     "name": "Chrome Launch",
     "url": "http://localhost:9000",
     "sourceMaps": true,
-    "webRoot": "${workspaceFolder}/dist",
+    "webRoot": "${workspaceFolder}",
     "sourceMapPathOverrides": {
       "webpack:///./*": "${webRoot}/*",
       "webpack:///src/*": "${webRoot}/*",

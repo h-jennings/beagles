@@ -8,7 +8,7 @@ export default function closeMenuAnimation() {
   const closeMenuTransition = () => {
     const closeMenuTransitionTl = new TimelineMax();
     closeMenuTransitionTl
-      .to([elm.bookTxt, elm.closeMenuBtn], animation.defaultDuration, {
+      .to([elm.desktopBookTxt, elm.closeMenuBtnDesktop], animation.defaultDuration, {
         opacity: 0,
         ease: animation.defaultEase,
       })
@@ -19,17 +19,23 @@ export default function closeMenuAnimation() {
         ease: animation.defaultEase,
         delay: animation.defaultDelay,
       })
-      .to(elm.hamburger, 0, {
+      .set(elm.desktopBookBtn, {
+        display: 'none',
+      })
+      .set(elm.menuBtn, {
+        display: 'flex',
+      })
+      .set(elm.hamburger, {
         display: 'unset',
         opacity: 1,
       })
-      .to(elm.hamburgerBars, 0, {
+      .set(elm.hamburgerBars, {
         x: '100%',
       })
-      .to(elm.sideBarLinkWrapper, 0, {
+      .set(elm.desktopSideBarLinkWrapper, {
         display: 'none',
       })
-      .to([elm.bookTxt, elm.closeMenuBtn], 0, {
+      .set([elm.desktopBookTxt, elm.closeMenuBtnDesktop], {
         display: 'none',
       })
       .to(elm.desktopTransitionBlock, animation.durationLonger, {

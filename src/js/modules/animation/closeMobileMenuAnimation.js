@@ -8,16 +8,16 @@ export default function closeMobileMenuAnimation() {
   const fadeOutMobileMenuContent = () => {
     const fadeOutMobileMenuContentTl = new TimelineMax();
 
-    const reversedSidebarLinks = [...elm.sideBarLinks].reverse();
+    const reversedSidebarLinks = [...elm.mobileSideBarLinks].reverse();
 
     fadeOutMobileMenuContentTl
-      .to(elm.bookTxt, animation.defaultDuration, {
+      .to(elm.mobileBookTxt, animation.defaultDuration, {
         opacity: 0,
       })
       .staggerTo(reversedSidebarLinks, animation.defaultDuration, {
         opacity: 0,
       }, animation.defaultStagger)
-      .to(elm.sidebar, animation.durationLonger, {
+      .to(elm.mobileSidebar, animation.durationLonger, {
         opacity: 0,
       });
 
@@ -27,7 +27,7 @@ export default function closeMobileMenuAnimation() {
   const fadeInMainContent = () => {
     const fadeInContentTl = new TimelineMax();
     fadeInContentTl
-      .set(elm.sidebar, {
+      .set(elm.mobileSidebar, {
         opacity: 1,
       })
       .to(elm.mobileSidebarWrapper, animation.defaultDuration, {
@@ -40,8 +40,8 @@ export default function closeMobileMenuAnimation() {
         delay: animation.defaultDelay,
       }, `-=${animation.defaultDuration}`)
       .set(elm.body, {
-        overflow: 'visible',
-      }, `-=${animation.defaultDuration}`);
+        className: '-=no-overflow',
+      });
 
     return fadeInContentTl;
   };
@@ -54,7 +54,7 @@ export default function closeMobileMenuAnimation() {
         ease: animation.defaultEase,
         x: '0%',
       })
-      .set(elm.sidebar, {
+      .set(elm.mobileSidebar, {
         x: '-100%',
       })
       .to(elm.mobileTransitionBlock, animation.durationLonger, {

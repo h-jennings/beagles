@@ -17,9 +17,9 @@ export default function openMenuAnimation() {
           opacity: 0,
         },
       )
-      .to(elm.body, animation.defaultDuration, {
-        overflow: 'hidden',
-      }, `-=${animation.defaultDuration}`);
+      .set(elm.body, {
+        className: '+=no-overflow',
+      });
 
     return fadeOutContentTl;
   };
@@ -32,25 +32,28 @@ export default function openMenuAnimation() {
         opacity: 1,
         visibility: 'visible',
       })
+      .set(elm.closeMenuBtnMobile, {
+        display: 'unset',
+      })
       .to(elm.mobileTransitionBlock, animation.defaultDuration, {
         x: '0%',
         delay: animation.longerDelay,
       })
-      .set(elm.sidebar, {
+      .set(elm.mobileSidebar, {
         x: '0%',
       })
       .to(elm.mobileTransitionBlock, animation.defaultDuration, {
         x: '100%',
         delay: animation.longerDelay,
       })
-      .staggerFromTo(elm.sideBarLinks, animation.durationLonger, {
+      .staggerFromTo(elm.mobileSideBarLinks, animation.durationLonger, {
         y: '-20%',
         opacity: 0,
       }, {
         y: '0%',
         opacity: 1,
       }, animation.defaultStagger)
-      .fromTo(elm.bookTxt, animation.defaultDuration, {
+      .fromTo([elm.mobileBookTxt, elm.closeMenuBtnMobile], animation.defaultDuration, {
         opacity: 0,
       }, {
         opacity: 1,
