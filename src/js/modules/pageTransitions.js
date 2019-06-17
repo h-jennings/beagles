@@ -1,11 +1,14 @@
 import barba from '@barba/core';
+// import barbaRouter from '@barba/router';
+import homeTransition from './transitions/homeTransition';
 
 export default class PageTransitions {
-  constructor() {
-    this.initTransitions();
+  constructor(config) {
+    this.config = config;
+    PageTransitions.initTransitions();
   }
 
-  initTransitions() {
+  static initTransitions() {
     barba.hooks.before(() => {
       barba.wrapper.classList.add('is-animating');
     });
@@ -16,9 +19,12 @@ export default class PageTransitions {
 
     barba.init({
       transitions: [{
-        name: 'default',
-        leave: ({ current }) => console.log(current.container),
-        enter: ({ next }) => console.log(current.contaner),
+        name: 'home',
+        leave: ({ current }) => {
+          console.log(current);
+          homeTransition(current.container);
+        },
+        enter: ({ next }) => console.log(next.contaner),
       }],
     });
   }

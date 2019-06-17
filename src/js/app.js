@@ -1,4 +1,7 @@
 import '../scss/main.scss';
+import barba from '@barba/core';
+import homeTransition from './modules/transitions/homeTransition';
+import contactTransition from './modules/transitions/contactTransition';
 import config from './config';
 import Sidebar from './modules/sidebar';
 
@@ -8,10 +11,6 @@ class App {
   }
 
   constructor() {
-    this.menuState = {
-      mobileMenuReset: false,
-      desktopMenuReset: false,
-    };
     Promise.all([
       App.domReady(),
     ])
@@ -33,12 +32,38 @@ class App {
     return new Sidebar(config);
   }
 
+  static initPageTransitions() {
+    barba.hooks.before(() => {
+      barba.wrapper.classList.add('is-animating');
+    });
+
+    barba.hooks.after(() => {
+      barba.wrapper.classList.remove('is-animating');
+    });
+
+    barba.init({
+      transitions: [{
+        name: 'home-to-contact',
+        sync: false,
+        from: {
+          route: 'home',
+        },
+        to: {
+          namespace: 'contact',
+        },
+        leave: ({ current }) => homeTransition(current.container),
+        enter: ({ next }) => contactTransition(next.container),
+      }],
+    });
+  }
+
   static init() {
     const images = require.context('../assets/images/', true, /\.jpg|.svg$/);
     images.keys().map(images);
 
     App.showPage();
     App.initSidebarLogic();
+    App.initPageTransitions();
   }
 }
 
