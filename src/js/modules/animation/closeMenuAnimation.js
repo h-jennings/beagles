@@ -1,7 +1,8 @@
-/* global TimelineMax */
+import { TimelineMax } from 'gsap';
+import config from '../../config';
 
 export default function closeMenuAnimation() {
-  const { elm, animation } = this.config;
+  const { elm, animation } = config;
 
   const closeMenuMasterTl = new TimelineMax();
 
@@ -65,4 +66,6 @@ export default function closeMenuAnimation() {
   closeMenuMasterTl
     .add(closeMenuTransition())
     .add(menuAppearAnimation());
+
+  return closeMenuMasterTl;
 }

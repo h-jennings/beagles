@@ -1,9 +1,12 @@
-import '../scss/main.scss';
 import barba from '@barba/core';
-import homeTransition from './modules/transitions/homeTransition';
-import contactTransition from './modules/transitions/contactTransition';
+import '../scss/main.scss';
 import config from './config';
+import isMobile from './modules/browserCheck';
 import Sidebar from './modules/sidebar';
+import fadeIn from './modules/transitions/fadeIn';
+import fadeOut from './modules/transitions/fadeOut';
+import closeMenuAnimation from './modules/animation/closeMenuAnimation';
+import closeMobileMenuAnimation from './modules/animation/closeMobileMenuAnimation';
 
 class App {
   static start() {
@@ -13,6 +16,7 @@ class App {
   constructor() {
     Promise.all([
       App.domReady(),
+      App.initSiteAssets(),
     ])
       .then(App.init.bind(this))
       .catch(err => console.error(err));
@@ -28,39 +32,60 @@ class App {
     });
   }
 
+  static initSiteAssets() {
+    return new Promise((resolve, reject) => {
+      // Importing the images into the project
+      const images = require.context('../assets/images/', true, /\.jpg|.svg|.jpeg$/);
+      images.keys().map(images);
+
+      if (images) {
+        resolve();
+      } else {
+        reject(console.error('rejected!'));
+      }
+    });
+  }
+
   static initSidebarLogic() {
     return new Sidebar(config);
   }
 
   static initPageTransitions() {
+    // Check browser
+    const mobile = isMobile();
+
+    // Adding a class to the wrapper that's animating
     barba.hooks.before(() => {
       barba.wrapper.classList.add('is-animating');
     });
 
+    // Removing class once it's complete
     barba.hooks.after(() => {
       barba.wrapper.classList.remove('is-animating');
     });
 
+    // Initializing barba object
     barba.init({
       transitions: [{
-        name: 'home-to-contact',
+        name: 'fade',
         sync: false,
-        from: {
-          route: 'home',
-        },
-        to: {
-          namespace: 'contact',
-        },
-        leave: ({ current }) => homeTransition(current.container),
-        enter: ({ next }) => contactTransition(next.container),
+
+        /* These animations are activating properly
+        but I need to alter the mobile menu animation
+        in order for it to work properly with the page
+        transition animations */
+
+        beforeLeave: () => (mobile
+          ? closeMobileMenuAnimation()
+          : closeMenuAnimation()
+        ),
+        leave: ({ current }) => fadeOut(current.container),
+        enter: ({ next }) => fadeIn(next.container),
       }],
     });
   }
 
   static init() {
-    const images = require.context('../assets/images/', true, /\.jpg|.svg$/);
-    images.keys().map(images);
-
     App.showPage();
     App.initSidebarLogic();
     App.initPageTransitions();

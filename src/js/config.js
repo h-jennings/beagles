@@ -12,6 +12,7 @@ const config = {
   elm: {
     // Global elements
     body: document.body,
+    mainContainer: document.querySelector('main'),
     contentWrapper: document.querySelector('.content-wrapper'),
     mainFooter: document.querySelector('footer.primary'),
 

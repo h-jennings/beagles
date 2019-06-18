@@ -89,6 +89,22 @@ DATES TABLE SECTION
     margin-bottom: var(--space--md);
     border: var(--border-main);
     background-color: var(--black);
+    transition: border-width 0.3s;
+
+    img {
+      opacity: 0;
+      transition: all 0.3s;
+      transform: translateX(-100%);
+    }
+
+    &:hover {
+      border-width: 8px;
+
+      img {
+        opacity: 1;
+        transform: translateX(0%);
+      }
+    }
 
     @include for-tablet-landscape-down {
       grid-template-columns: 51px minmax(1fr, 27%) 1fr;
@@ -203,7 +219,7 @@ DATES TABLE SECTION
   }
 
   .event-button--container {
-    button {
+    .arrow {
       border-radius: 50%;
       overflow: hidden;
       background-color: var(--pink);
@@ -211,7 +227,14 @@ DATES TABLE SECTION
       height: 62px;
       border: none;
       padding: 0;
-      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 26px;
+        height: auto;
+      }
 
       @include for-laptop-down {
         width: 46px;

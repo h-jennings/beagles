@@ -1,9 +1,7 @@
-import { TimelineMax, TimelineLite } from 'gsap';
 import openMenuAnimation from './animation/openMenuAnimation';
 import openMobileMenuAnimation from './animation/openMobileMenuAnimation';
 import closeMenuAnimation from './animation/closeMenuAnimation';
 import closeMobileMenuAnimation from './animation/closeMobileMenuAnimation';
-// import changeButtonState from './changeButtonState';
 import browserCheck from './browserCheck';
 
 export default class Sidebar {
@@ -30,26 +28,22 @@ export default class Sidebar {
       const desktopEventOptions = {
         menu: {
           functions: [
-            openMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            openMenuAnimation,
           ],
         },
         book: {
           functions: [
-            closeMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            closeMenuAnimation,
           ],
         },
         hamburger: {
           functions: [
-            openMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            openMenuAnimation,
           ],
         },
         close: {
           functions: [
-            closeMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            closeMenuAnimation,
           ],
         },
       };
@@ -57,20 +51,17 @@ export default class Sidebar {
       const mobileEventOptions = {
         mobileMenu: {
           functions: [
-            openMobileMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            openMobileMenuAnimation,
           ],
         },
         close: {
           functions: [
-            closeMobileMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            closeMobileMenuAnimation,
           ],
         },
         book: {
           functions: [
-            closeMobileMenuAnimation.bind(this),
-            // changeButtonState.bind(this, buttonDataset),
+            closeMobileMenuAnimation,
           ],
         },
       };
@@ -80,7 +71,7 @@ export default class Sidebar {
       } else {
         // run mobile specific animations here
         // Evaluating and running the mobile specific functions based on their data attributes
-        mobileEventOptions[buttonDataset].functions.forEach(fn => fn());
+        mobileEventOptions[buttonDataset].functions.forEach(fn => fn(buttonDataset));
       }
     };
 
