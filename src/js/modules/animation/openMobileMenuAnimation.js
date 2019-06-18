@@ -1,7 +1,8 @@
-/* global TimelineMax */
+import { TimelineMax } from 'gsap';
+import config from '../../config';
 
 export default function openMenuAnimation() {
-  const { elm, animation } = this.config;
+  const { elm, animation } = config;
 
   const openMobileMenuAnimationMasterTl = new TimelineMax();
 
