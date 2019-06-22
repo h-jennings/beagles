@@ -8,7 +8,10 @@ export default function fadeOut(targets) {
       const fadeOutContentTl = new TimelineMax();
 
       fadeOutContentTl
-        .to(targets, 0.5, {
+        .fromTo(targets, 0.5, {
+          opacity: 1,
+        },
+        {
           opacity: 0,
         });
 
