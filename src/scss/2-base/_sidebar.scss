@@ -28,7 +28,6 @@ MOBILE SIDEBAR STYLES
   width: 100vw;
   opacity: 0;
   pointer-events: none;
-  visibility: hidden;
   transform: translateX(-100%);
 }
 
@@ -286,7 +285,6 @@ aside.sidebar {
   top: 0;
   right: 0;
   transform: translateX(calc(100% + 4px));
-  visibility: hidden;
   pointer-events: none;
   background-color: var(--black);
 
@@ -327,7 +325,6 @@ aside.sidebar {
   }
 
   @include for-tablet-down {
-    visibility: visible;
     pointer-events: all;
   }
 }

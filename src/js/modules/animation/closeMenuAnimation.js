@@ -14,9 +14,9 @@ export default function closeMenuAnimation() {
         ease: animation.defaultEase,
       })
       .fromTo(elm.desktopTransitionBlock, animation.durationLonger, {
-        y: '100%',
+        yPercent: 100,
       }, {
-        y: '0%',
+        yPercent: 0,
         ease: animation.defaultEase,
         delay: animation.defaultDelay,
       })
@@ -31,7 +31,7 @@ export default function closeMenuAnimation() {
         opacity: 1,
       })
       .set(elm.hamburgerBars, {
-        x: '100%',
+        xPercent: 100,
       })
       .set(elm.desktopSideBarLinkWrapper, {
         display: 'none',
@@ -40,7 +40,7 @@ export default function closeMenuAnimation() {
         display: 'none',
       })
       .to(elm.desktopTransitionBlock, animation.durationLonger, {
-        y: '-100%',
+        yPercent: -100,
         ease: animation.defaultEase,
         delay: animation.defaultDelay,
       });
@@ -56,7 +56,7 @@ export default function closeMenuAnimation() {
         opacity: 1,
       })
       .staggerTo(elm.hamburgerBars, animation.defaultDuration, {
-        x: '0%',
+        xPercent: 0,
       }, animation.defaultStagger);
 
 

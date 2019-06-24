@@ -17,7 +17,7 @@ export default function openMenuAnimation() {
       .staggerTo(elm.hamburgerBars, animation.defaultDuration,
         {
           delay: animation.defaultDelay,
-          x: '-100%',
+          xPercent: -100,
           ease: animation.defaultEase,
         }, animation.defaultStagger, `-=${animation.defaultDuration}`)
       .to(elm.hamburger, 0, {
@@ -33,7 +33,7 @@ export default function openMenuAnimation() {
 
     sideBarTransitionTl
       .to(elm.desktopTransitionBlock, animation.durationLonger, {
-        y: '0%',
+        yPercent: 0,
         ease: animation.defaultEase,
       })
       .set(elm.desktopSideBarLinkWrapper, {
@@ -49,7 +49,7 @@ export default function openMenuAnimation() {
         display: 'inline-block',
       })
       .to(elm.desktopTransitionBlock, animation.durationLonger, {
-        y: '100%',
+        yPercent: 100,
         ease: animation.defaultEase,
         delay: animation.defaultDelay,
       })

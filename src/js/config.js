@@ -33,6 +33,7 @@ const config = {
     mobileSidebar: document.querySelector('aside.sidebar[data-type="mobile"]'),
     mobileTransitionBlock: document.querySelector('.mobile-menu-transition-block'),
     mobileSidebarWrapper: document.querySelector('.m-sidebar--wrapper'),
+    mobileSideBarLinksWrapper: document.querySelectorAll('nav.m-sidebar-links'),
     mobileSideBarLinks: document.querySelectorAll('nav.m-sidebar-links li'),
     mobileMenuBtn: document.querySelector('button.m-menu-btn'),
     closeMenuBtnMobile: document.querySelector('button.m-close'),
