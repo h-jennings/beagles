@@ -1,7 +1,6 @@
-import openMenuAnimation from './animation/openMenuAnimation';
 import openMobileMenuAnimation from './animation/openMobileMenuAnimation';
-import closeMenuAnimation from './animation/closeMenuAnimation';
 import closeMobileMenuAnimation from './animation/closeMobileMenuAnimation';
+import desktopMenuAnimationFn from './animation/desktopMenuAnimation';
 import browserCheck from './browserCheck';
 
 export default class Sidebar {
@@ -25,29 +24,6 @@ export default class Sidebar {
         e.stopPropagation();
       }
 
-      const desktopEventOptions = {
-        menu: {
-          functions: [
-            openMenuAnimation,
-          ],
-        },
-        book: {
-          functions: [
-            closeMenuAnimation,
-          ],
-        },
-        hamburger: {
-          functions: [
-            openMenuAnimation,
-          ],
-        },
-        close: {
-          functions: [
-            closeMenuAnimation,
-          ],
-        },
-      };
-
       const mobileEventOptions = {
         mobileMenu: {
           functions: [
@@ -67,7 +43,7 @@ export default class Sidebar {
       };
         // Evaluating and running the desktop specific functions based on their data attributes
       if (!this.isMobile) {
-        desktopEventOptions[buttonDataset].functions.forEach(fn => fn());
+        desktopMenuAnimationFn(buttonDataset);
       } else {
         // run mobile specific animations here
         // Evaluating and running the mobile specific functions based on their data attributes

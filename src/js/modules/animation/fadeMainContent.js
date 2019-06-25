@@ -7,19 +7,26 @@ export default function fadeMainContentFn(buttonType) {
 
   const fadeMainContent = () => {
     const fadeMainContentTl = new TimelineMax();
+    const mainContainer = document.querySelector('main');
 
     fadeMainContentTl
-      .fromTo([elm.mainContainer, elm.mobileSidebarWrapper], animation.defaultDuration, {
+      .fromTo([mainContainer, elm.mobileSidebarWrapper], animation.defaultDuration, {
         opacity: 1,
       },
       {
         ease: animation.defaultEase,
         opacity: 0,
       })
-      .set([elm.mainContainer, elm.mobileSidebarWrapper], {
+      .fromTo([mainContainer, elm.mobileSidebarWrapper], animation.instant, {
+        visibility: 'visible',
+      },
+      {
         visibility: 'hidden',
       })
-      .set(elm.body, {
+      .fromTo(elm.body, animation.instant, {
+        className: '-=no-overflow',
+      },
+      {
         className: '+=no-overflow',
       });
 

@@ -40,3 +40,7 @@
 .is-visible {
   visibility: visible;
 }
+
+:root::-webkit-scrollbar-thumb {
+  -webkit-appearance: none;
+}

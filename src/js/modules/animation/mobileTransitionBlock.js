@@ -9,9 +9,12 @@ export default function mobileTransitionBlockFn(buttonType) {
     const transitionBlockAnimationTl = new TimelineMax();
 
     transitionBlockAnimationTl
-      .set(elm.mobileTransitionBlock, {
-        opacity: 1,
-      })
+      .fromTo(elm.mobileTransitionBlock, animation.instant,
+        {
+          opacity: 0,
+        }, {
+          opacity: 1,
+        })
       .set(elm.mobileTransitionBlock, {
         xPercent: 0,
       })

@@ -4,7 +4,7 @@ import mobileTransitionBlockFn from './mobileTransitionBlock';
 import fadeMainContentFn from './fadeMainContent';
 import fadeSidebarContentFn from './fadeSidebarContent';
 
-export default function closeMobileMenuAnimation(buttonType) {
+export default function (buttonType) {
   return new Promise((resolve) => {
     const { elm, animation } = config;
 

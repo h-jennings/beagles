@@ -1,12 +1,13 @@
 import barba from '@barba/core';
+import barbaPrefetch from '@barba/prefetch';
 import '../scss/main.scss';
 import config from './config';
 import isMobile from './modules/browserCheck';
 import Sidebar from './modules/sidebar';
 import fadeIn from './modules/transitions/fadeIn';
 import fadeOut from './modules/transitions/fadeOut';
-import closeMenuAnimation from './modules/animation/closeMenuAnimation';
-import closeMobileMenuAnimation from './modules/animation/closeMobileMenuAnimation';
+import fadeOutMobileFn from './modules/transitions/fadeOutMobile';
+import desktopMenuAnimationFn from './modules/animation/desktopMenuAnimation';
 
 class App {
   static start() {
@@ -70,16 +71,10 @@ class App {
         name: 'fade',
         sync: false,
 
-        /* These animations are activating properly
-        but I need to alter the mobile menu animation
-        in order for it to work properly with the page
-        transition animations */
-
-        beforeLeave: () => (mobile
-          ? closeMobileMenuAnimation()
-          : closeMenuAnimation()
-        ),
-        leave: ({ current }) => fadeOut(current.container),
+        beforeLeave: () => (!mobile ? desktopMenuAnimationFn() : ''),
+        leave: ({ current }) => (!mobile
+          ? fadeOut(current.container)
+          : fadeOutMobileFn()),
         enter: ({ next }) => fadeIn(next.container),
       }],
     });

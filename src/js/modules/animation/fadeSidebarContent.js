@@ -9,12 +9,20 @@ export default function fadeSidebarContentFn(buttonType) {
     const fadeSidebarContentTl = new TimelineMax();
 
     fadeSidebarContentTl
-      .set(elm.mobileSidebar, {
-        xPercent: 100,
-      })
-      .set(elm.closeMenuBtnMobile, {
-        display: 'unset',
-      })
+      .fromTo(elm.mobileSidebar, animation.instant,
+        {
+          xPercent: 0,
+        },
+        {
+          xPercent: 100,
+        })
+      .fromTo(elm.closeMenuBtnMobile, animation.instant,
+        {
+          display: 'none',
+        },
+        {
+          display: 'unset',
+        })
       .fromTo(elm.mobileBookBtn, animation.durationLonger, {
         opacity: 0,
       },

@@ -8,6 +8,7 @@ const config = {
     defaultDelay: 0.1,
     longerDelay: 0.4,
     durationLonger: 0.5,
+    instant: 0.001,
   },
   elm: {
     // Global elements

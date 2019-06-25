@@ -2,6 +2,9 @@
   "eslint.autoFixOnSave": true,
   "cSpell.words": [
     "Soundcloud",
-    "Spotify"
+    "Spotify",
+    "barba",
+    "gsap",
+    "prefetch"
   ]
 }
