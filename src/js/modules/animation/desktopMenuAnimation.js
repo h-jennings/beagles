@@ -55,6 +55,12 @@ export default function desktopMenuAnimationFn(buttonType) {
       {
         display: 'none',
       })
+      .fromTo(elm.nameWrapper, animation.instant, {
+        display: 'flex',
+      },
+      {
+        display: 'none',
+      })
       .fromTo(elm.desktopBookBtn, animation.instant, {
         display: 'none',
       },

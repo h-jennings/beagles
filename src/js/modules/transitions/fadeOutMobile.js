@@ -1,6 +1,6 @@
 import { TimelineMax } from 'gsap';
-import fadeSidebarContentFn from './fadeSidebarContent';
-import mobileTransitionBlockFn from './mobileTransitionBlock';
+import fadeSidebarContentFn from '../animation/fadeSidebarContent';
+import mobileTransitionBlockFn from '../animation/mobileTransitionBlock';
 
 
 export default function fadeOutMobile() {

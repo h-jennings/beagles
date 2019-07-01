@@ -1,5 +1,6 @@
 import barba from '@barba/core';
-import barbaPrefetch from '@barba/prefetch';
+import ScrollOut from 'scroll-out';
+// import barbaPrefetch from '@barba/prefetch';
 import '../scss/main.scss';
 import config from './config';
 import isMobile from './modules/browserCheck';
@@ -51,19 +52,38 @@ class App {
     return new Sidebar(config);
   }
 
+  static initScrollLogic() {
+    // init scroll out object
+
+    // Calculating the size of the 'name' svg on the homepage
+    const { nameSvg, menuBtn, nameWrapper } = config.elm;
+    const root = document.documentElement;
+    const nameContainer = nameWrapper.getBoundingClientRect().height;
+    const visibleHeightOfNameWrapper = window.innerHeight - menuBtn.getBoundingClientRect().height;
+
+
+    const getDiff = () => {
+      let nameDiff = (visibleHeightOfNameWrapper / nameContainer) * 100;
+      nameDiff = 100 - nameDiff;
+
+      return nameDiff;
+    };
+
+    if (nameSvg) {
+      // Creating properly on the root element
+      root.style.setProperty('--name-diff', `${getDiff()}%`);
+    }
+
+    ScrollOut({
+      cssProps: {
+        scrollPercentY: true,
+      },
+    });
+  }
+
   static initPageTransitions() {
     // Check browser
     const mobile = isMobile();
-
-    // Adding a class to the wrapper that's animating
-    barba.hooks.before(() => {
-      barba.wrapper.classList.add('is-animating');
-    });
-
-    // Removing class once it's complete
-    barba.hooks.after(() => {
-      barba.wrapper.classList.remove('is-animating');
-    });
 
     // Initializing barba object
     barba.init({
@@ -71,19 +91,29 @@ class App {
         name: 'fade',
         sync: false,
 
+        // Before container leaves, if desktop, run the desktopMenuAnimationFn function.
+        // If mobile, return nothing.
         beforeLeave: () => (!mobile ? desktopMenuAnimationFn() : ''),
+        /*
+          On barba container leave, run fadeOut functions
+          depending on whether user is on a mobile phone or desktop device.
+        */
         leave: ({ current }) => (!mobile
           ? fadeOut(current.container)
           : fadeOutMobileFn()),
+        // Main content fades in the same way, regardless of device size.
         enter: ({ next }) => fadeIn(next.container),
       }],
     });
   }
 
   static init() {
-    App.showPage();
-    App.initSidebarLogic();
-    App.initPageTransitions();
+    Promise.all([
+      App.showPage(),
+      App.initSidebarLogic(),
+      App.initPageTransitions(),
+      App.initScrollLogic(),
+    ]);
   }
 }
 

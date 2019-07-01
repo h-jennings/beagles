@@ -16,6 +16,8 @@ const config = {
     mainContainer: document.querySelector('main'),
     contentWrapper: document.querySelector('.content-wrapper'),
     mainFooter: document.querySelector('footer.primary'),
+    nameWrapper: document.querySelector('.name-wrapper'),
+    nameSvg: document.querySelector('.name-wrapper svg'),
 
     // Desktop specific elements
     desktopSidebar: document.querySelector('aside.sidebar[data-type="desktop"]'),

@@ -269,9 +269,16 @@ aside.sidebar {
     display: flex;
     justify-content: center;
     background-color: var(--black);
+    /* 
+      Transforming svg visibility based on scroll position
+      --name-height = calculated height of the svg on page load
+      --scroll-percent-y = percentage of viewport scrolled (updated constantly)
+    */
+    transform: translateY(calc((var(--name-diff) * var(--scroll-percent-y)) * -1));
 
     svg {
       transform: translateX(-20%);
+      transform-origin: top;
       margin-top: var(--space--xl);
     }
   }
