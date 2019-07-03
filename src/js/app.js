@@ -9,6 +9,7 @@ import fadeIn from './modules/transitions/fadeIn';
 import fadeOut from './modules/transitions/fadeOut';
 import fadeOutMobileFn from './modules/transitions/fadeOutMobile';
 import desktopMenuAnimationFn from './modules/animation/desktopMenuAnimation';
+import beaglesNameAnimationFn from './modules/animation/beaglesNameAnimation';
 
 class App {
   static start() {
@@ -35,15 +36,13 @@ class App {
   }
 
   static initSiteAssets() {
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       // Importing the images into the project
       const images = require.context('../assets/images/', true, /\.jpg|.svg|.jpeg$/);
       images.keys().map(images);
 
       if (images) {
         resolve();
-      } else {
-        reject(console.error('rejected!'));
       }
     });
   }
@@ -54,31 +53,17 @@ class App {
 
   static initScrollLogic() {
     // init scroll out object
-
-    // Calculating the size of the 'name' svg on the homepage
-    const { nameSvg, menuBtn, nameWrapper } = config.elm;
-    const root = document.documentElement;
-    const nameContainer = nameWrapper.getBoundingClientRect().height;
-    const visibleHeightOfNameWrapper = window.innerHeight - menuBtn.getBoundingClientRect().height;
-
-
-    const getDiff = () => {
-      let nameDiff = (visibleHeightOfNameWrapper / nameContainer) * 100;
-      nameDiff = 100 - nameDiff;
-
-      return nameDiff;
-    };
-
-    if (nameSvg) {
-      // Creating properly on the root element
-      root.style.setProperty('--name-diff', `${getDiff()}%`);
-    }
-
     ScrollOut({
       cssProps: {
         scrollPercentY: true,
       },
     });
+
+    /* Calling function that handles the scroll
+      animation of the 'Beagles' text in the sidebar */
+    // ? maybe consolidate and call them all in the a Promise.all?
+
+    beaglesNameAnimationFn(config);
   }
 
   static initPageTransitions() {
@@ -101,6 +86,8 @@ class App {
         leave: ({ current }) => (!mobile
           ? fadeOut(current.container)
           : fadeOutMobileFn()),
+        // Quick reset to make sure the window scroll resets to the top
+        beforeEnter: () => window.scroll(0, 0),
         // Main content fades in the same way, regardless of device size.
         enter: ({ next }) => fadeIn(next.container),
       }],

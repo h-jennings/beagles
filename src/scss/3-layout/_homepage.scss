@@ -57,6 +57,35 @@ main.home-content {
   }
 }
 
+.player--link {
+
+  // Assign grid columns and offsets
+  &:nth-child(odd) {
+    grid-column: 4 / -1;
+    margin-bottom: 70%;
+  }
+
+  &:nth-child(even) {
+    grid-column: 2 / 3;
+    margin-top: -84%;
+  }
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
+
+  @include for-grid-break {
+
+    // Assign grid columns and offsets (mobile)
+    &:nth-child(odd),
+    &:nth-child(even) {
+      grid-column: 1;
+      margin-bottom: 0;
+      margin-top: 0;
+    }
+  }
+}
+
 // Music Player Specific Styles
 .player {
   width: var(--player-size);
@@ -64,18 +93,55 @@ main.home-content {
   position: relative;
   background-color: var(--black);
   z-index: 0;
+  cursor: pointer;
+
+  .img--wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .soundcloud-logo {
+    position: absolute;
+    left: var(--space--sm);
+    top: var(--space--sm);
+    z-index: 2;
+    transform: translateY(10%);
+    transition: all 0.3s ease-in-out;
+
+    svg {
+      width: 30px;
+      opacity: 0;
+      transition: all 0.3s ease-in-out;
+    }
+  }
 
   img {
     display: block;
     width: 100%;
     height: auto;
+    z-index: 1;
+    transition: all 0.3s ease-in-out;
   }
 
-  // Assign grid columns and offsets
-  &:nth-child(odd) {
-    grid-column: 4 / -1;
-    margin-bottom: 70%;
+  /* Captures the hover state of all of the
+   player containers on the homepage */
+
+  &:hover {
+    img {
+      filter: blur(2px) grayscale(1) brightness(0.5);
+      transform: scale(1.03);
+    }
+
+    .soundcloud-logo {
+      transform: translateY(0%)
+    }
+
+    svg {
+      opacity: 1;
+    }
   }
+
+
 
   // Boxes around player
   &:nth-child(odd)::before {
@@ -112,31 +178,11 @@ main.home-content {
     }
   }
 
-  &:nth-child(even) {
-    grid-column: 2 / 3;
-    margin-top: -84%;
-  }
-
-  &:last-of-type {
-    margin-bottom: 0;
-  }
-
-  @include for-grid-break {
-
-    // Assign grid columns and offsets (mobile)
-    &:nth-child(odd),
-    &:nth-child(even) {
-      grid-column: 1;
-      margin-bottom: 0;
-      margin-top: 0;
-    }
-  }
-
   // Player Controls Wrapper & Container Styles
   .player-controls--wrapper {
-    border: var(--border-main);
     display: flex;
     align-items: center;
+    padding: var(--space--sm) 0;
   }
 
   .player-track--container {
@@ -151,50 +197,13 @@ main.home-content {
   // Track Title Container Styles
   .track-txt-title--wrapper {
     overflow: hidden;
-    white-space: nowrap;
-    max-width: 140px;
-
-    @include for-laptop-down {
-      max-width: 85px;
-    }
-
-    @include for-phone-only {
-      max-width: 15vw;
-    }
+    width: 100%;
   }
 
   // Player Text
-  .track-txt-title,
-  .track-txt-time {
+  .track-txt-title {
     font-size: var(--txt--xsm);
-  }
-
-  // Player Button Styles
-  .play-pause-btn {
-    border: none;
-    background-color: var(--pink);
-    width: 44px;
-    height: 44px;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-
-
-    img {
-      width: 16px;
-      height: auto;
-    }
-
-    @include for-laptop-down {
-      width: 33px;
-      height: 33px;
-
-      img {
-        width: 12px;
-      }
-    }
-
+    line-height: 1.2;
+    text-align: right;
   }
 }

@@ -269,6 +269,7 @@ aside.sidebar {
     display: flex;
     justify-content: center;
     background-color: var(--black);
+    will-change: transform;
     /* 
       Transforming svg visibility based on scroll position
       --name-height = calculated height of the svg on page load
