@@ -53,10 +53,12 @@ class App {
 
   static initScrollLogic() {
     // init scroll out object
-    ScrollOut({
+    const initScrollOut = ScrollOut({
       cssProps: {
         scrollPercentY: true,
       },
+      once: true,
+      threshold: 0.5,
     });
 
     /* Calling function that handles the scroll
@@ -64,6 +66,8 @@ class App {
     // ? maybe consolidate and call them all in the a Promise.all?
 
     beaglesNameAnimationFn(config);
+
+    return initScrollOut;
   }
 
   static initPageTransitions() {
@@ -87,9 +91,12 @@ class App {
           ? fadeOut(current.container)
           : fadeOutMobileFn()),
         // Quick reset to make sure the window scroll resets to the top
-        beforeEnter: () => window.scroll(0, 0),
+        beforeEnter: () => {
+          window.scroll(0, 0);
+        },
         // Main content fades in the same way, regardless of device size.
-        enter: ({ next }) => fadeIn(next.container),
+        enter: ({ next }) => fadeIn(next.container, config, mobile),
+        after: () => App.initScrollLogic().update(),
       }],
     });
   }

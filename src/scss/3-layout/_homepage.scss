@@ -38,6 +38,7 @@ main.home-content {
 
   h2 {
     margin-bottom: calc(var(--space--xxl) + var(--space--sm));
+    opacity: 0;
 
     @include for-laptop-down {
       margin-bottom: calc(var(--space--xl) + var(--space--sm));
@@ -58,6 +59,8 @@ main.home-content {
 }
 
 .player--link {
+
+  opacity: 0;
 
   // Assign grid columns and offsets
   &:nth-child(odd) {

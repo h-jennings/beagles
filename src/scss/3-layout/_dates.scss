@@ -81,6 +81,7 @@ DATES TABLE SECTION
 .dates-table--wrapper {
 
   .table-row {
+    opacity: 0;
     display: grid;
     grid-template-columns: repeat(2, min-content) 1fr auto min-content;
     grid-template-rows: 1fr;

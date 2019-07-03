@@ -1,0 +1,30 @@
+main.home-content h2,
+.player--link,
+.availability--container .txt--display {
+
+  &[data-scroll="out"] {
+    transform: translateY(5%);
+    opacity: 0;
+    transition: all 0.5s ease-in;
+  }
+
+  &[data-scroll="in"] {
+    transition: all 0.5s ease-in;
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
+
+.dates-table .table-row {
+  &[data-scroll="out"] {
+    transform: translateY(20%);
+    opacity: 0;
+    transition: all 0.5s ease-in;
+  }
+
+  &[data-scroll="in"] {
+    transition: all 0.5s ease-in;
+    transform: translateY(0%);
+    opacity: 1;
+  }
+}
