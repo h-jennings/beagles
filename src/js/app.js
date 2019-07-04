@@ -43,7 +43,7 @@ class App {
   static initSiteAssets() {
     return new Promise((resolve) => {
       // Importing the images into the project
-      const images = require.context('../assets/images/', true, /\.jpg|.svg|.jpeg$/);
+      const images = require.context('../assets/images/', true, /\.jpg|.svg|.jpeg|.png$/);
       images.keys().map(images);
 
       if (images) {
