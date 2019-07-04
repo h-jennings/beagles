@@ -1,3 +1,36 @@
+.landscape-message {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--black);
+
+  p {
+    display: block;
+  }
+
+  img {
+    display: block;
+    margin-bottom: var(--space--md);
+  }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  body {
+    overflow: hidden;
+    position: fixed;
+  }
+
+  .landscape-message {
+    display: flex;
+    flex-flow: column;
+  }
+}
+
 #main-wrapper {
   -webkit-overflow-scrolling: touch;
 }

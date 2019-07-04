@@ -256,6 +256,7 @@ DATES TABLE SECTION
 
   .table-show-more--section {
     display: flex;
+    opacity: 0;
     border: var(--border-main);
   }
 

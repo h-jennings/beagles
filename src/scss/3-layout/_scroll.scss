@@ -1,6 +1,9 @@
 main.home-content h2,
 .player--link,
-.availability--container .txt--display {
+.availability--container .txt--display,
+main.contact-content .header--wrapper,
+main.contact-content .body--wrapper,
+main.contact-content a.book {
 
   &[data-scroll="out"] {
     transform: translateY(5%);
@@ -15,9 +18,10 @@ main.home-content h2,
   }
 }
 
-.dates-table .table-row {
+.dates-table .table-row,
+.table-show-more--section {
   &[data-scroll="out"] {
-    transform: translateY(20%);
+    transform: translateY(10%);
     opacity: 0;
     transition: all 0.5s ease-in;
   }
@@ -26,5 +30,52 @@ main.home-content h2,
     transition: all 0.5s ease-in;
     transform: translateY(0%);
     opacity: 1;
+  }
+}
+
+/* These styles control the underline 
+effect for availability--container */
+
+.txt--display {
+  span.no-txt-outline {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+
+  span.no-txt-outline::before {
+    content: '';
+    height: 4px;
+    background-color: var(--pink);
+    width: 100%;
+    bottom: 10%;
+    position: absolute;
+    transform: translateX(101%);
+
+    @include for-grid-break {
+      height: 2px;
+    }
+  }
+
+  &[data-scroll="in"] span.no-txt-outline::before {
+    animation-name: underlineAnimation;
+    animation-duration: 1s;
+    animation-delay: 1s;
+    animation-iteration-count: 1;
+  }
+}
+
+/* This is a simple transform 
+animation that plays when the 
+availability--container becomes visible*/
+
+@keyframes underlineAnimation {
+  from {
+    transform: translateX(-101%)
+  }
+
+  to {
+    transform: translateX(101%)
   }
 }

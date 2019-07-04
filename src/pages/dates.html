@@ -10,6 +10,7 @@
 
 <body>
   <div id="main-wrapper" data-barba="wrapper">
+    <%= require('html-loader!./components/landscapeMessage.html') %>
     <%= require('html-loader!./components/mobileSidebar.html') %>
     <%= require('html-loader!./components/desktopSidebar.html') %>
     <main class="dates-content" data-barba="container" data-barba-namespace="dates">
@@ -21,52 +22,23 @@
         <div class="dates-table--wrapper">
           <p class="table-title">COME THROUGH, FAM.</p>
           <div class="dates-table">
-            <a href="#">
+            <a href="https://www.ustreetmusichall.com/event/1872177-dmv-deep-dc-s-house-party-1-washington/" target="_blank">
               <ul class="table-row" data-scroll>
                 <li class="event-number--container">
                   <div class="event-number txt--base">01</div>
                 </li>
                 <li class="event-date--container">
-                  <div class="event-date txt--sm">january<span class="date-number txt--lg bolded">29</span></div>
+                  <div class="event-date txt--sm">july<span class="date-number txt--lg bolded">19</span></div>
                 </li>
-                <li class="event-name txt--base">Amtrac w/ Alex Noize</li>
+                <li class="event-name txt--base">DMV Deep One-Year Anniversary</li>
                 <li class="event-location txt--base">Washington,<br> D.C.</li>
                 <li class="event-button--container">
                   <div class="arrow"><img src="arrow.svg"></div>
                 </li>
               </ul>
             </a>
-            <a href="#">
-              <ul class="table-row" data-scroll>
-                <li class="event-number--container">
-                  <div class="event-number txt--base">02</div>
-                </li>
-                <li class="event-date--container">
-                  <div class="event-date txt--sm">april<span class="date-number txt--lg bolded">21</span></div>
-                </li>
-                <li class="event-name txt--base">Nuanroidsaplalooza</li>
-                <li class="event-location txt--base">Washington,<br> D.C.</li>
-                <li class="event-button--container">
-                  <div class="arrow"><img src="arrow.svg"></div>
-                </li>
-              </ul>
-            </a>
-            <a href="#">
-              <ul class="table-row" data-scroll>
-                <li class="event-number--container">
-                  <div class="event-number txt--base">03</div>
-                </li>
-                <li class="event-date--container">
-                  <div class="event-date txt--sm">june<span class="date-number txt--lg bolded">10</span></div>
-                </li>
-                <li class="event-name txt--base">Welcome to the show</li>
-                <li class="event-location txt--base">New York City,<br> NY</li>
-                <li class="event-button--container">
-                  <div class="arrow"><img src="arrow.svg"></div>
-                </li>
-              </ul>
-            </a>
-            <div class="table-show-more--section" style="display: none;">
+            <!-- * Keeping this section for future event logic -->
+            <!-- <div class="table-show-more--section" data-scroll>
               <div class="show-more-icon--container">
                 <svg width="10" height="42" xmlns="http://www.w3.org/2000/svg">
                   <g transform="translate(1 1)" stroke="#F5D2D2" fill="none" fill-rule="evenodd">
@@ -81,7 +53,7 @@
                   <path d="M0 22.3493h22.2201V0h9.5598v22.3493H54v9.3014H31.7799V54h-9.5598V31.6507H0z" fill="#262626" fill-rule="evenodd" />
                 </svg>
               </button>
-            </div>
+            </div> -->
           </div>
           <section class="availability--container">
             <div class="txt--display" data-scroll><span class="opacity-40">I am currently</span><br><span class="no-txt-outline">available</span> <span class="opacity-40">for<br>

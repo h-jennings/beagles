@@ -1,9 +1,9 @@
 import barba from '@barba/core';
 import ScrollOut from 'scroll-out';
-// import barbaPrefetch from '@barba/prefetch';
 import '../scss/main.scss';
 import config from './config';
 import isMobile from './modules/browserCheck';
+import getMobileVhFn from './modules/getMobileVh';
 import Sidebar from './modules/sidebar';
 import fadeIn from './modules/transitions/fadeIn';
 import fadeOut from './modules/transitions/fadeOut';
@@ -35,6 +35,11 @@ class App {
     });
   }
 
+
+  static getVhValue() {
+    getMobileVhFn();
+  }
+
   static initSiteAssets() {
     return new Promise((resolve) => {
       // Importing the images into the project
@@ -63,8 +68,6 @@ class App {
 
     /* Calling function that handles the scroll
       animation of the 'Beagles' text in the sidebar */
-    // ? maybe consolidate and call them all in the a Promise.all?
-
     beaglesNameAnimationFn(config);
 
     return initScrollOut;
@@ -107,6 +110,7 @@ class App {
       App.initSidebarLogic(),
       App.initPageTransitions(),
       App.initScrollLogic(),
+      App.getVhValue(),
     ]);
   }
 }

@@ -22,7 +22,7 @@ export default function mobileTransitionBlockFn(buttonType) {
         xPercent: 100,
         delay: animation.longerDelay,
       })
-      .to(elm.mobileTransitionBlock, animation.durationLonger, {
+      .to(elm.mobileTransitionBlock, animation.defaultDuration, {
         xPercent: 200,
         delay: animation.longerDelay,
       });

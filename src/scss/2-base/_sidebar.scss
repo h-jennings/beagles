@@ -47,6 +47,8 @@ aside.sidebar {
     width: 100%;
     max-width: unset;
     z-index: 10;
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
 
     @include for-tablet-down {
       display: unset;
@@ -149,6 +151,10 @@ aside.sidebar {
 
   }
 
+  nav.m-sidebar-links {
+    height: calc(100% - var(--btn--height));
+  }
+
   button {
     cursor: pointer;
   }
@@ -167,6 +173,10 @@ aside.sidebar {
     align-items: center;
     z-index: 3;
     padding: 0;
+
+    a {
+      color: var(--black);
+    }
   }
 
   &[data-type="desktop"] {

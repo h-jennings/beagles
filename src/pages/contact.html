@@ -10,27 +10,23 @@
 
 <body>
   <div id="main-wrapper" data-barba="wrapper">
+    <%= require('html-loader!./components/landscapeMessage.html') %>
     <%= require('html-loader!./components/mobileSidebar.html') %>
     <%= require('html-loader!./components/desktopSidebar.html') %>
     <main class="contact-content" data-barba="container" data-barba-namespace="contact">
       <div class="content-wrapper">
         <div class="main-content">
-          <h1>Contact</h1>
-          <p><span class="greeting">Hello.</span></p>
-          <p>I appreciate your interest in working with me. Please use the email link below to start the
-            booking process.</p>
-          <p>Serious inquires only, don't be an asshole. <span class="underline">No</span> frat parties or weddings.</p>
-          <p>✌️&nbsp; <span class="bolded">Beagles</span>.</p>
-        </div>
-        <div class="contact-information--wrapper">
-          <div class="txt--contact"><a href="mailto:derek.lai@gmail.com">derek.lai@gmail.com</a></div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
-          <div class="txt--contact--deco">derek.lai@gmail.com</div>
+          <div class="header--wrapper" data-scroll>
+            <h1>Work<br /> with me.</h1>
+          </div>
+          <div class="body--wrapper" data-scroll>
+            <p><span class="greeting">Hello.</span></p>
+            <p>I appreciate your interest in working with me. Please use the email link below to start the
+              booking process.</p>
+            <p>Serious inquires only, don't be an asshole. <span class="underline">No</span> frat parties or weddings.</p>
+            <p>✌️&nbsp; <span class="bolded">Beagles</span>.</p>
+          </div>
+          <a class="book" href="mailto:dereklai6@gmail.com" data-scroll><button class="book">Book</button></a>
         </div>
       </div>
       <%= require('html-loader!./components/footer.html') %>
