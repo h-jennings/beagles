@@ -87,26 +87,34 @@ class App {
 
     // Initializing barba object
     barba.init({
+
+      debug: true,
       transitions: [{
         name: 'fade',
         sync: false,
-
         // Before container leaves, if desktop, run the desktopMenuAnimationFn function.
         // If mobile, return nothing.
-        beforeLeave: () => (!mobile ? desktopMenuAnimationFn() : ''),
+        beforeLeave: ({ trigger }) => {
+          if (trigger === 'popstate') return;
+          !mobile && desktopMenuAnimationFn();
+        },
         /*
           On barba container leave, run fadeOut functions
           depending on whether user is on a mobile phone or desktop device.
         */
-        leave: ({ current }) => (!mobile
-          ? fadeOut(current.container)
-          : fadeOutMobileFn()),
+        leave: ({ current, trigger }) => {
+          if (trigger === 'popstate') return;
+
+          !mobile
+            ? fadeOut(current.container)
+            : fadeOutMobileFn();
+        },
         // Quick reset to make sure the window scroll resets to the top
         beforeEnter: () => {
           window.scroll(0, 0);
         },
         // Main content fades in the same way, regardless of device size.
-        enter: ({ next }) => fadeIn(next.container, config, mobile),
+        enter: ({ next, trigger }) => trigger !== 'popstate' && fadeIn(next.container, config, mobile),
         after: () => App.initScrollLogic().update(),
       }],
     });

@@ -80,10 +80,14 @@ DATES TABLE SECTION
 
 .dates-table--wrapper {
 
+  .dates-table-current {
+    margin-bottom: var(--space--xl);
+  }
+
   .table-row {
     opacity: 0;
     display: grid;
-    grid-template-columns: repeat(2, min-content) 1fr auto min-content;
+    grid-template-columns: min-content 19% 1fr auto min-content;
     grid-template-rows: 1fr;
     justify-items: start;
     align-items: center;
@@ -159,7 +163,7 @@ DATES TABLE SECTION
 
   p {
     text-align: right;
-    margin-bottom: var(--space--md);
+    margin-bottom: var(--space--sm);
 
     @include for-tablet-landscape-down {
       font-size: var(--txt--xsm);
@@ -180,6 +184,8 @@ DATES TABLE SECTION
   .event-date--container {
     border-right: var(--border-main);
     display: flex;
+    width: 100%;
+    justify-content: center;
   }
 
   .event-date {
@@ -191,6 +197,10 @@ DATES TABLE SECTION
 
     @include for-laptop-down {
       font-size: 1.9vw;
+    }
+
+    @include for-tablet-down {
+      font-size: 2.7vw;
     }
   }
 
@@ -323,7 +333,7 @@ section.availability--container {
   display: flex;
   justify-content: center;
   width: 100%;
-  padding: var(--space--super) 0 0 0;
+  padding: 0 0 var(--space--super) 0;
 
   div {
     @include for-laptop-down {

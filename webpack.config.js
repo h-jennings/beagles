@@ -1,6 +1,5 @@
 /* eslint-disable global-require */
 const path = require('path');
-const ImageminPlugin = require('imagemin-webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -46,12 +45,24 @@ module.exports = {
             },
           },
           {
-            loader: ImageminPlugin.loader,
+            loader: 'image-webpack-loader',
             options: {
-              bail: false, // Ignore errors on corrupted images
-              cache: true,
-              imageminOptions: {
-                plugins: ['mozjpeg', 'optipng', 'svgo'],
+              bypassOnDebug: true,
+              mozjpeg: {
+                progressive: true,
+                arithmetic: false,
+              },
+              optipng: {
+                optimizationLevel: 5,
+              },
+              pngquant: {
+                enabled: false,
+              },
+              gifsicle: {
+                enabled: false,
+              },
+              webp: {
+                enabled: false,
               },
             },
           },
