@@ -21,7 +21,6 @@ class App {
     Promise.all([
       App.domReady(),
       App.initSiteAssets(),
-      App.loadingAnimation(),
     ])
       .then(App.init.bind(this))
       .catch(err => console.error(err));
