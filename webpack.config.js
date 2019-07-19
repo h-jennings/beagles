@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
@@ -15,6 +16,7 @@ module.exports = {
     port: 9000,
     open: false,
   },
+  mode: 'development',
   module: {
     rules: [
       {
@@ -25,13 +27,43 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|svg|jpg|gif|woff2|woff)$/,
+        test: /\.(woff2|woff)$/,
         use: {
           loader: 'file-loader',
           options: {
-            name: '[name].[ext]',
+            name: 'fonts/[name].[ext]',
           },
         },
+      },
+      {
+        test: /\.(png|svg|jpg)$/,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: 'images/[name].[hash].[ext]',
+            },
+          },
+          {
+            loader: 'img-loader',
+            options: {
+              plugins: process.env.NODE_ENV === 'production' && [
+                require('imagemin-mozjpeg')({
+                  progressive: true,
+                  arithmetic: false,
+                }),
+                require('imagemin-optipng')({
+                  optimizationLevel: 5,
+                }),
+                require('imagemin-svgo')({
+                  plugins: [
+                    { convertPathData: false },
+                  ],
+                }),
+              ],
+            },
+          },
+        ],
       },
       {
         test: /\.scss$/,

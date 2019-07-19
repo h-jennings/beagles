@@ -4,6 +4,7 @@ import '../scss/main.scss';
 import config from './config';
 import isMobile from './modules/browserCheck';
 import getMobileVhFn from './modules/getMobileVh';
+// import loadingAnimationFn from './modules/animation/loadingAnimation';
 import Sidebar from './modules/sidebar';
 import fadeIn from './modules/transitions/fadeIn';
 import fadeOut from './modules/transitions/fadeOut';
@@ -20,6 +21,7 @@ class App {
     Promise.all([
       App.domReady(),
       App.initSiteAssets(),
+      App.loadingAnimation(),
     ])
       .then(App.init.bind(this))
       .catch(err => console.error(err));
@@ -34,6 +36,13 @@ class App {
       document.addEventListener('DOMContentLoaded', resolve);
     });
   }
+
+  /*   static loadingAnimation() {
+    return new Promise((resolve) => {
+      loadingAnimationFn()
+        .then(resolve());
+    });
+  } */
 
 
   static getVhValue() {
