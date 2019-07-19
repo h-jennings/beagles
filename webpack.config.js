@@ -61,9 +61,6 @@ module.exports = {
               gifsicle: {
                 enabled: false,
               },
-              webp: {
-                enabled: false,
-              },
             },
           },
         ],
