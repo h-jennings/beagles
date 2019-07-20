@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import barba from '@barba/core';
 import ScrollOut from 'scroll-out';
 import '../scss/main.scss';
@@ -102,13 +103,16 @@ class App {
           On barba container leave, run fadeOut functions
           depending on whether user is on a mobile phone or desktop device.
         */
-        leave: ({ current, trigger }) => {
-          if (trigger === 'popstate') return;
-
-          !mobile
-            ? fadeOut(current.container)
-            : fadeOutMobileFn();
-        },
+        leave: ({ current, trigger }) => (
+          // Double ternary operator here because I need to
+          // perform to different evaluations
+          trigger !== 'popstate' ? (
+            !mobile
+              ? fadeOut(current.container)
+              : fadeOutMobileFn()
+          )
+            : null
+        ),
         // Quick reset to make sure the window scroll resets to the top
         beforeEnter: () => {
           window.scroll(0, 0);

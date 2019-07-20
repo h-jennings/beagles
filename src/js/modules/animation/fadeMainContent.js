@@ -8,7 +8,6 @@ export default function fadeMainContentFn(buttonType) {
   const fadeMainContent = () => {
     const fadeMainContentTl = new TimelineMax();
     const mainContainer = document.querySelector('main');
-
     fadeMainContentTl
       .fromTo([mainContainer, elm.mobileSidebarWrapper], animation.defaultDuration, {
         opacity: 1,
@@ -36,7 +35,6 @@ export default function fadeMainContentFn(buttonType) {
 
   fadeMainContentMasterTl
     .add(fadeMainContent());
-
   if (buttonType !== 'mobileMenu') return fadeMainContentMasterTl.reverse(0);
 
   return fadeMainContentMasterTl;
