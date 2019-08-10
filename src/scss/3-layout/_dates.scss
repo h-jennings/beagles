@@ -112,7 +112,7 @@ DATES TABLE SECTION
     }
 
     @include for-tablet-landscape-down {
-      grid-template-columns: 51px minmax(1fr, 27%) 1fr;
+      grid-template-columns: 51px 27% 1fr;
       grid-template-rows: repeat(2, 1fr);
 
       .event-button--container {
