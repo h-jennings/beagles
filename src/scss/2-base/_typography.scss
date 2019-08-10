@@ -100,28 +100,3 @@ h2 {
   font-weight: 700;
   text-align: left;
 }
-
-.txt--contact,
-.txt--contact--deco {
-  font-size: var(--txt--lg);
-  line-height: 1.2;
-  font-weight: 700;
-  text-align: center;
-
-  @include for-laptop-down {
-    font-size: var(--txt--md);
-  }
-
-  @include for-tablet-down {
-    font-size: 6vw;
-  }
-}
-
-.txt--contact {
-  color: var(--pink);
-}
-
-.txt--contact--deco {
-  color: var(--black);
-  -webkit-text-stroke: 1px var(--pink);
-}

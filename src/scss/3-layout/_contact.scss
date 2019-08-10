@@ -26,6 +26,11 @@ main.contact-content {
     line-height: 1.5;
   }
 
+  a.book,
+  .body--wrapper {
+    max-width: 450px;
+  }
+
   a.book {
     grid-column: 1 / 2;
     opacity: 0;
@@ -115,14 +120,6 @@ main.contact-content {
 .contact-information--wrapper {
   position: relative;
   padding-top: var(--space--super);
-
-  .txt--contact,
-  .txt--contact--deco {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
 }
 
 :root {
@@ -131,43 +128,4 @@ main.contact-content {
   @include for-phone-only {
     --offset-base: 12%;
   }
-}
-
-.txt--contact {
-  z-index: 9;
-}
-
-.txt--contact--deco:nth-of-type(2) {
-  transform: translateX(-50%) translateY(var(--offset-base));
-  z-index: 8;
-}
-
-.txt--contact--deco:nth-of-type(3) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 2));
-  z-index: 7;
-}
-
-.txt--contact--deco:nth-of-type(4) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 3));
-  z-index: 6;
-}
-
-.txt--contact--deco:nth-of-type(5) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 4));
-  z-index: 5;
-}
-
-.txt--contact--deco:nth-of-type(6) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 5));
-  z-index: 4;
-}
-
-.txt--contact--deco:nth-of-type(7) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 6));
-  z-index: 3;
-}
-
-.txt--contact--deco:nth-of-type(8) {
-  transform: translateX(-50%) translateY(calc(var(--offset-base) * 7));
-  z-index: 2;
 }
