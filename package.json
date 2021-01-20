@@ -19,7 +19,7 @@
     "eslint-plugin-import": "^2.16.0",
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
-    "gsap": "^2.1.2",
+    "gsap": "^3.6.0",
     "scroll-out": "^2.2.7"
   },
   "devDependencies": {
